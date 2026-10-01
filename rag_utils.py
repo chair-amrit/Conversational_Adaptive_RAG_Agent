@@ -8,33 +8,27 @@ from llm_utils import generate_chain
 load_dotenv()
 
 def create_rag(pdf_path):
-    #load pdf
-    loader = PyPDFLoader(pdf_path)
-    docs=loader.load()
-
-    #splitter:provide chunk size and overlap
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=90
-    )
-
-    #split into chunks
-    chunks=splitter.split_documents(docs)
-
-    #create embeddings
     embeds=GoogleGenerativeAIEmbeddings(
         model="models/gemini-embedding-001"
     )
 
-    #create Chroma
-    vectors = Chroma.from_documents(
-        chunks,
-        embeds,
+    vectors = Chroma(
         collection_name="my_rag",
-        persist_directory="./chroma_db"
+        persist_directory="chroma_db",
+        embedding_function=embeds,
     )
 
-    #create retriever
+    if not vectors.get(limit=1)["ids"]:
+        loader = PyPDFLoader(pdf_path)
+        docs=loader.load()
+
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=90
+        )
+        chunks=splitter.split_documents(docs)
+        vectors.add_documents(chunks)
+
     retriever=vectors.as_retriever(
         search_kwargs={"k":2}
     )
