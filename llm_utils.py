@@ -6,7 +6,7 @@ load_dotenv()
 
 def generate_chain():
     llm=ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash"
+        model="gemini-3.1-flash-lite"
     )
     prompt= ChatPromptTemplate.from_template(
         """
@@ -37,7 +37,7 @@ def generate_chain():
 
 def web_chain():
     llm=ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash"
+        model="gemini-3.1-flash-lite"
     )
     prompt= ChatPromptTemplate.from_template(
         """
@@ -81,7 +81,7 @@ from langchain_groq import ChatGroq
 
 def router_chain():
     llm=ChatGroq(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         temperature=0
     )
     prompt=ChatPromptTemplate.from_template(
@@ -105,7 +105,7 @@ def router_chain():
 
 def rewrite_chain():
     llm=ChatGroq(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         temperature=0
     )
     prompt=ChatPromptTemplate.from_template(
@@ -129,7 +129,7 @@ def rewrite_chain():
 
 def retrieval_grader():
     llm=ChatGroq(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",     
         temperature=0
     )
     prompt=ChatPromptTemplate.from_template(
