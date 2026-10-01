@@ -1,7 +1,7 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.vectorstores import FAISS
+from langchain_chroma import Chroma
 from dotenv import load_dotenv
 from llm_utils import generate_chain
 
@@ -26,13 +26,15 @@ def create_rag(pdf_path):
         model="models/gemini-embedding-001"
     )
 
-    #create FAISS
-    vectors=FAISS.from_documents(
+    #create Chroma
+    vectors = Chroma.from_documents(
         chunks,
-        embeds
+        embeds,
+        collection_name="my_rag",
+        persist_directory="./chroma_db"
     )
 
-    #create retirever
+    #create retriever
     retriever=vectors.as_retriever(
         search_kwargs={"k":2}
     )
