@@ -7,9 +7,12 @@ from langgraph.graph.message import add_messages
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
 
-pdf_path=r"D:\finetune.pdf"
+pdf_paths = [
+    r"D:\finetune.pdf",
+    r"D:\min_project.pdf",
+]
 
-retriever=create_rag(pdf_path)
+retriever = create_rag(pdf_paths)
 
 #LangGraph needs to know what data exists in the state.
 class State(TypedDict):
