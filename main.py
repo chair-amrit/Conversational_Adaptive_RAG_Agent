@@ -6,6 +6,7 @@ from typing import Annotated
 from langgraph.graph.message import add_messages
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
+import os
 
 pdf_paths = [
     r"D:\finetune.pdf",
@@ -64,17 +65,40 @@ def rewrite_node(state):
     }
 
 def retriever_node(state):
-    docs=retriever.invoke(
-        state["standalone_question"]
-    )
-    context="\n\n".join(
-        doc.page_content
-        for doc in docs
-    )
-    print("Rewritten:",state["standalone_question"])
-    return {
-        "context": context
-    }
+    docs = retriever.invoke(state["standalone_question"])
+
+    context_parts = []
+
+    for doc in docs:
+        source = doc.metadata.get("file_name")
+
+        if not source:
+            source = os.path.basename(
+                doc.metadata.get("source", "Unknown source")
+            )
+
+        page = doc.metadata.get("page")
+
+        # PyPDFLoader page metadata is zero-indexed.
+        if page is not None:
+            try:
+                page_label = f"Page {int(page) + 1}"
+            except (ValueError, TypeError):
+                page_label = f"Page {page}"
+        else:
+            page_label = "Page unknown"
+
+        context_parts.append(
+            f"Source: {source}\n"
+            f"{page_label}\n"
+            f"Content:\n{doc.page_content}"
+        )
+
+    context = "\n\n---\n\n".join(context_parts)
+
+    print("Rewritten:", state["standalone_question"])
+
+    return {"context": context}
 
 
 def grader_node(state):
