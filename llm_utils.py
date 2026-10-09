@@ -1,5 +1,6 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import MessagesPlaceholder
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,31 +9,41 @@ def generate_chain():
     llm=ChatGoogleGenerativeAI(
         model="gemini-3.1-flash-lite"
     )
-    prompt= ChatPromptTemplate.from_template(
-        """
-        You are a helpful AI assistant.
+    prompt = ChatPromptTemplate.from_messages([
+        (
+            "system",
+            """
+            You are a helpful assistant answering questions
+            using retrieved document context.
 
-        Use the retrieved context to answer the user's question accurately.
+            Rules:
+            1. Answer using the provided context.
+            2. Cite document-based claims using the exact source
+               and page information supplied in the context.
+            3. Format citations like:
+               [Source: min_project.pdf, Page 4]
+            4. Never invent filenames, page numbers, or citations.
+            5. If the context does not support an answer, say
+               that the information was not found in the documents.
+            6. Use conversation history to understand follow-up
+               questions, but do not treat it as document evidence.
+            """
+        ),
+        MessagesPlaceholder(variable_name="messages"),
+        (
+            "human",
+                """
+            Retrieved context:
+            {context}
 
-        Rules:
-        - Answer only from the provided context.
-        - If the context is insufficient, do not guess.
-        - Be clear and concise.
-        - Use the conversation history only for conversational continuity, not as factual evidence.
+            Question:
+            {question}
+            """
+        )
+    ])
 
-        Conversation:
-        {messages}
-
-        Context:
-        {context}
-
-        Question:
-        {question}
-
-        Answer:
-        """
-    )
-    return prompt | llm
+    chain = prompt | llm
+    return chain
 
 
 def web_chain():
