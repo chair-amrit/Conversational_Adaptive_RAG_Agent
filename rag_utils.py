@@ -22,7 +22,7 @@ def create_rag(pdf_paths):
 
     # Open the persistent Chroma database
     vectors = Chroma(
-        collection_name="my_rag",
+        collection_name="my_rag_v2",
         persist_directory="./chroma_db",
         embedding_function=embeds,
     )
