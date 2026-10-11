@@ -10,7 +10,9 @@ import os
 
 pdf_paths = [
     r"D:\finetune.pdf",
-    r"D:\min_project.pdf",
+    r"D:\mycodes\langchain\min_project.pdf",
+    r"D:\mycodes\langchain\sample.docx",
+    r"D:\mycodes\langchain\notes.txt",
 ]
 
 retriever = create_rag(pdf_paths)
