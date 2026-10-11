@@ -5,78 +5,226 @@ from langchain_chroma import Chroma
 from dotenv import load_dotenv
 from llm_utils import generate_chain
 import os
+import csv
+import json
+import hashlib
+from pathlib import Path
+from docx import Document as WordDocument
+from pptx import Presentation
+from openpyxl import load_workbook
+from bs4 import BeautifulSoup
+
+from langchain_core.documents import Document
+
 
 load_dotenv()
 
 
-def create_rag(pdf_paths):
+def load_file_documents(file_path):
+    path = Path(file_path)
+    ext = path.suffix.lower()
 
-    # Allow either one PDF path or a list of paths
-    if isinstance(pdf_paths, (str, os.PathLike)):
-        pdf_paths = [pdf_paths]
+    metadata = {
+        "source": str(path.resolve()),
+        "file_name": path.name,
+        "file_type": ext.lstrip("."),
+    }
 
-    # Create the embedding model
+    if ext == ".pdf":
+        docs = PyPDFLoader(str(path)).load()
+        for doc in docs:
+            doc.metadata = {
+                k: v for k, v in doc.metadata.items()
+                if v is not None
+                and isinstance(v, (str, int, float, bool))
+            }
+            doc.metadata.update(metadata)
+        return docs
+
+    elif ext == ".docx":
+        word = WordDocument(str(path))
+        parts = [
+            p.text.strip() for p in word.paragraphs
+            if p.text.strip()
+        ]
+
+        for table in word.tables:
+            for row in table.rows:
+                parts.append(" | ".join(cell.text for cell in row.cells))
+
+        text = "\n".join(parts)
+
+    elif ext == ".pptx":
+        presentation = Presentation(str(path))
+        docs = []
+
+        for slide_num, slide in enumerate(presentation.slides, start=1):
+            parts = []
+
+            for shape in slide.shapes:
+                if shape.has_text_frame and shape.text.strip():
+                    parts.append(shape.text.strip())
+
+                if shape.has_table:
+                    for row in shape.table.rows:
+                        parts.append(
+                            " | ".join(cell.text for cell in row.cells)
+                        )
+
+            if parts:
+                docs.append(
+                    Document(
+                        page_content="\n".join(parts),
+                        metadata={**metadata, "slide": slide_num},
+                    )
+                )
+
+        return docs
+
+    elif ext in {".txt", ".md"}:
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+
+    elif ext == ".csv":
+        with path.open(
+            "r", encoding="utf-8-sig", newline=""
+        ) as file:
+            text = "\n".join(
+                " | ".join(row) for row in csv.reader(file)
+            )
+
+    elif ext == ".xlsx":
+        workbook = load_workbook(
+            str(path), read_only=True, data_only=True
+        )
+        docs = []
+
+        for sheet in workbook.worksheets:
+            rows = [
+                " | ".join(
+                    "" if value is None else str(value)
+                    for value in row
+                )
+                for row in sheet.iter_rows(values_only=True)
+            ]
+
+            sheet_text = "\n".join(
+                row for row in rows if row.strip(" |")
+            )
+
+            if sheet_text.strip():
+                docs.append(
+                    Document(
+                        page_content=sheet_text,
+                        metadata={**metadata, "sheet": sheet.title},
+                    )
+                )
+
+        workbook.close()
+        return docs
+
+    elif ext in {".html", ".htm"}:
+        soup = BeautifulSoup(
+            path.read_text(encoding="utf-8", errors="replace"),
+            "html.parser",
+        )
+
+        for tag in soup(["script", "style"]):
+            tag.decompose()
+
+        text = soup.get_text(separator=" ", strip=True)
+
+    elif ext == ".json":
+        with path.open("r", encoding="utf-8-sig") as file:
+            data = json.load(file)
+
+        text = json.dumps(data, ensure_ascii=False, indent=2)
+
+    else:
+        raise ValueError(f"Unsupported file type: {ext}")
+
+    return [
+        Document(page_content=text, metadata=metadata)
+    ] if text.strip() else []
+
+
+
+
+
+def create_rag(file_paths):
+
+    if isinstance(file_paths, (str, Path)):
+        file_paths = [file_paths]
+
     embeds = GoogleGenerativeAIEmbeddings(
         model="models/gemini-embedding-001"
     )
 
-    # Open the persistent Chroma database
     vectors = Chroma(
-        collection_name="my_rag_v2",
+        collection_name="my_rag_multiformat",
         persist_directory="./chroma_db",
         embedding_function=embeds,
     )
 
-    # Keep the same chunking configuration
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
-        chunk_overlap=90
+        chunk_overlap=90,
     )
 
-    # Process each PDF independently
-    for pdf_path in pdf_paths:
+    for file_path in file_paths:
+        path = Path(file_path).resolve()
 
-        source_path = os.path.abspath(os.fspath(pdf_path))
+        if not path.is_file():
+            raise FileNotFoundError(f"File not found: {path}")
 
-        # Check whether this particular PDF is already indexed.
-        # The fallback also recognizes your existing Chroma data,
-        # whose source metadata was created by PyPDFLoader.
+        docs = load_file_documents(path)
+
+        if not docs:
+            print(f"No readable text: {path.name}")
+            continue
+
+        # Normalize whitespace and case before hashing.
+        normalized_text = " ".join(
+            " ".join(doc.page_content for doc in docs).split()
+        ).casefold()
+
+        if not normalized_text:
+            print(f"No text to index: {path.name}")
+            continue
+
+        content_hash = hashlib.sha256(
+            normalized_text.encode("utf-8")
+        ).hexdigest()
+
+        # Has this content already been indexed?
         existing = vectors.get(
-            where={"source": source_path},
-            limit=1
+            where={"content_hash": content_hash},
+            limit=1,
         )["ids"]
 
         if existing:
-            print(f"Already indexed: {os.path.basename(source_path)}")
+            print(f"Duplicate content; skipping: {path.name}")
             continue
 
-        print(f"Indexing: {os.path.basename(source_path)}")
-
-        # Load PDF
-        loader = PyPDFLoader(source_path)
-        docs = loader.load()
-
-        # Attach source metadata to each page/document
+        # Store the same document-level hash on every chunk.
         for doc in docs:
-            doc.metadata["source"] = source_path
-            doc.metadata["file_name"] = os.path.basename(source_path)
+            doc.metadata["content_hash"] = content_hash
 
-        # Split into chunks
         chunks = splitter.split_documents(docs)
 
         if not chunks:
-            print(f"No chunks created: {source_path}")
+            print(f"No chunks created: {path.name}")
             continue
 
-        # Embed and store chunks in Chroma
         vectors.add_documents(chunks)
+        print(f"Indexed: {path.name}")
 
-    # Return one retriever that searches the collection
-    retriever = vectors.as_retriever(
+    return vectors.as_retriever(
         search_kwargs={"k": 2}
     )
 
-    return retriever
+
+
+
 
 def ask_question(query,retriever):
     #retrieve chunks
