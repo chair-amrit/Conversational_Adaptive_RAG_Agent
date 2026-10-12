@@ -9,10 +9,16 @@ from langgraph.checkpoint.memory import MemorySaver
 import os
 
 pdf_paths = [
-    r"D:\finetune.pdf",
-    r"D:\mycodes\langchain\min_project.pdf",
-    r"D:\mycodes\langchain\sample.docx",
-    r"D:\mycodes\langchain\notes.txt",
+    r"D:\mycodes\langchain\prac_files\finetune.pdf",
+    r"D:\mycodes\langchain\prac_files\min_project.pdf",
+    r"D:\mycodes\langchain\prac_files\sample.docx",
+    r"D:\mycodes\langchain\prac_files\notes.txt",
+    r"D:\mycodes\langchain\prac_files\notes.md",
+    r"D:\mycodes\langchain\prac_files\AI_survey_responses.csv",
+    r"D:\mycodes\langchain\prac_files\dabstep_task_registry.xlsx",
+    r"D:\mycodes\langchain\prac_files\project_atlas_kickoff.pptx",
+    r"D:\mycodes\langchain\prac_files\quant_strategy_spec.json",
+    r"D:\mycodes\langchain\prac_files\rag_service_design.html",
 ]
 
 retriever = create_rag(pdf_paths)
