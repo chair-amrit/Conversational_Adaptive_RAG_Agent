@@ -150,6 +150,7 @@ def load_file_documents(file_path):
 
 
 
+
 def create_rag(file_paths):
 
     if isinstance(file_paths, (str, Path)):
@@ -172,6 +173,7 @@ def create_rag(file_paths):
 
     for file_path in file_paths:
         path = Path(file_path).resolve()
+        source_path = str(path)
 
         if not path.is_file():
             raise FileNotFoundError(f"File not found: {path}")
@@ -182,7 +184,7 @@ def create_rag(file_paths):
             print(f"No readable text: {path.name}")
             continue
 
-        # Normalize whitespace and case before hashing.
+        # Create a normalized content fingerprint
         normalized_text = " ".join(
             " ".join(doc.page_content for doc in docs).split()
         ).casefold()
@@ -195,17 +197,39 @@ def create_rag(file_paths):
             normalized_text.encode("utf-8")
         ).hexdigest()
 
-        # Has this content already been indexed?
-        existing = vectors.get(
+        # Find chunks already associated with this exact file path
+        source_records = vectors.get(
+            where={"source": source_path},
+            include=["metadatas"],
+        )
+
+        old_ids = source_records["ids"]
+        old_metadata = source_records["metadatas"] or []
+
+        # If this file is unchanged, reuse its existing chunks
+        if old_ids and all(
+            metadata.get("content_hash") == content_hash
+            for metadata in old_metadata
+        ):
+            print(f"Already indexed: {path.name}")
+            continue
+
+        # If the file changed, remove its old chunks first
+        if old_ids:
+            vectors.delete(ids=old_ids)
+            print(f"Removed stale chunks: {path.name}")
+
+        # Check whether identical content exists under another source
+        duplicate_ids = vectors.get(
             where={"content_hash": content_hash},
             limit=1,
         )["ids"]
 
-        if existing:
+        if duplicate_ids:
             print(f"Duplicate content; skipping: {path.name}")
             continue
 
-        # Store the same document-level hash on every chunk.
+        # Attach the new fingerprint to every document before chunking
         for doc in docs:
             doc.metadata["content_hash"] = content_hash
 
@@ -221,6 +245,31 @@ def create_rag(file_paths):
     return vectors.as_retriever(
         search_kwargs={"k": 2}
     )
+
+
+
+def delete_document(file_path):
+    source_path = str(Path(file_path).resolve())
+
+    vectors = Chroma(
+        collection_name="my_rag_multiformat",
+        persist_directory="./chroma_db",
+    )
+
+    records = vectors.get(
+        where={"source": source_path}
+    )
+
+    ids = records["ids"]
+
+    if not ids:
+        print(f"No indexed chunks found for: {source_path}")
+        return 0
+
+    vectors.delete(ids=ids)
+
+    print(f"Deleted {len(ids)} chunks for: {Path(source_path).name}")
+    return len(ids)
 
 
 
