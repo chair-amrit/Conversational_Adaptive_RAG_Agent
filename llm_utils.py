@@ -7,7 +7,7 @@ load_dotenv()
 
 def generate_chain():
     llm=ChatGoogleGenerativeAI(
-        model="gemini-3.1-flash-lite"
+        model="gemini-3.5-flash-lite"
     )
     prompt = ChatPromptTemplate.from_messages([
         (
