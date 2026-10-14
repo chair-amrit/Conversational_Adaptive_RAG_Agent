@@ -248,6 +248,30 @@ def create_rag(file_paths):
 
 
 
+def delete_document(file_path):
+    source_path = str(Path(file_path).resolve())
+
+    vectors = Chroma(
+        collection_name="my_rag_multiformat",
+        persist_directory="./chroma_db",
+    )
+
+    records = vectors.get(
+        where={"source": source_path}
+    )
+
+    ids = records["ids"]
+
+    if not ids:
+        print(f"No indexed chunks found for: {source_path}")
+        return 0
+
+    vectors.delete(ids=ids)
+
+    print(f"Deleted {len(ids)} chunks for: {Path(source_path).name}")
+    return len(ids)
+
+
 
 
 
