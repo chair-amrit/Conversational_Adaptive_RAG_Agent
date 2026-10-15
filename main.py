@@ -13,7 +13,6 @@ pdf_paths = [
     r"D:\mycodes\langchain\prac_files\min_project.pdf",
     r"D:\mycodes\langchain\prac_files\sample.docx",
     r"D:\mycodes\langchain\prac_files\notes.txt",
-    r"D:\mycodes\langchain\prac_files\notes.md",
     r"D:\mycodes\langchain\prac_files\AI_survey_responses.csv",
     r"D:\mycodes\langchain\prac_files\dabstep_task_registry.xlsx",
     r"D:\mycodes\langchain\prac_files\project_atlas_kickoff.pptx",
