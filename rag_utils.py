@@ -219,7 +219,7 @@ def create_rag(file_paths):
             vectors.delete(ids=old_ids)
             print(f"Removed stale chunks: {path.name}")
 
-        # Check whether identical content exists under another source
+        # Skip content that is already stored in ChromaDB
         duplicate_ids = vectors.get(
             where={"content_hash": content_hash},
             limit=1,
@@ -294,3 +294,33 @@ def ask_question(query,retriever):
     })
 
     return response.content
+
+
+    
+def inspect_sources():
+    from langchain_google_genai import GoogleGenerativeAIEmbeddings
+    from langchain_chroma import Chroma
+
+    embeds = GoogleGenerativeAIEmbeddings(
+        model="models/gemini-embedding-001"
+    )
+
+    vectors = Chroma(
+        collection_name="my_rag_multiformat",
+        persist_directory="./chroma_db",
+        embedding_function=embeds,
+    )
+
+    data = vectors.get(include=["metadatas"])
+
+    for doc_id, metadata in zip(data["ids"], data["metadatas"]):
+        print(
+            doc_id,
+            metadata.get("file_name"),
+            metadata.get("content_hash"),
+            metadata.get("source"),
+        )
+
+
+if __name__ == "__main__":
+    inspect_sources()
