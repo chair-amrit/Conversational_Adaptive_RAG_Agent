@@ -71,18 +71,31 @@ def rewrite_node(state):
         "standalone_question":response.content.strip()
     }
 
+
 def retriever_node(state):
     docs = retriever.invoke(state["standalone_question"])
 
+    # DEBUG: inspect what ChromaDB retrieves
+    print("\n--- RETRIEVED DOCUMENTS ---")
+    print("Rewritten question:", state["standalone_question"])
+    print("Number of retrieved chunks:", len(docs))
+
     context_parts = []
 
-    for doc in docs:
+    for i, doc in enumerate(docs, start=1):
         source = doc.metadata.get("file_name")
 
         if not source:
             source = os.path.basename(
                 doc.metadata.get("source", "Unknown source")
             )
+
+        print(f"\n[Document {i}]")
+        print("File:", source)
+        print("Path:", doc.metadata.get("source"))
+        print("Retrieved text:")
+        print(doc.page_content[:1000])
+        print("-" * 50)
 
         page = doc.metadata.get("page")
 
@@ -103,9 +116,10 @@ def retriever_node(state):
 
     context = "\n\n---\n\n".join(context_parts)
 
-    print("Rewritten:", state["standalone_question"])
+    print("\n--- END RETRIEVED DOCUMENTS ---\n")
 
     return {"context": context}
+
 
 
 def grader_node(state):
