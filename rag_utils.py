@@ -214,22 +214,23 @@ def create_rag(file_paths):
             print(f"Already indexed: {path.name}")
             continue
 
-        # If the file changed, remove its old chunks first
+        # Keep old chunks until the replacement is indexed successfully.
         if old_ids:
-            vectors.delete(ids=old_ids)
-            print(f"Removed stale chunks: {path.name}")
+            print(f"File changed; preparing safe update: {path.name}")
 
-        # Skip content that is already stored in ChromaDB
+        # Detect identical content in other files.
         duplicate_ids = vectors.get(
             where={"content_hash": content_hash},
             limit=1,
         )["ids"]
 
         if duplicate_ids:
-            print(f"Duplicate content; skipping: {path.name}")
-            continue
+            print(
+                f"Duplicate content detected. "
+                f"Indexing {path.name} separately."
+            )
 
-        # Attach the new fingerprint to every document before chunking
+        # Add the content hash before splitting.
         for doc in docs:
             doc.metadata["content_hash"] = content_hash
 
@@ -239,7 +240,14 @@ def create_rag(file_paths):
             print(f"No chunks created: {path.name}")
             continue
 
+        # First, index the new content.
         vectors.add_documents(chunks)
+
+        # Only after successful indexing, remove the old chunks.
+        if old_ids:
+            vectors.delete(ids=old_ids)
+            print(f"Replaced old chunks: {path.name}")
+
         print(f"Indexed: {path.name}")
 
     return vectors.as_retriever(
