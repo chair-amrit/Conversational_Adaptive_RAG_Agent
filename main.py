@@ -122,19 +122,82 @@ def retriever_node(state):
 
 
 
+
 def grader_node(state):
     chain = retrieval_grader()
+
     response = chain.invoke({
-        "question":state["standalone_question"],
-        "context":state["context"]
+        "question": state["standalone_question"],
+        "context": state["context"]
     })
-    return {
-        "retrieval_status":response.content.strip().lower()
-    }
+
+    # Handle either string content or a list of text blocks.
+    raw = response.content
+
+    if isinstance(raw, str):
+        raw_text = raw
+    elif isinstance(raw, list):
+        raw_text = " ".join(
+            block.get("text", "")
+            if isinstance(block, dict)
+            else str(block)
+            for block in raw
+        )
+    else:
+        raw_text = str(raw or "")
+
+    # Normalize the model's response.
+    tokens = [
+        token.strip(".,:;!?\"'`*()[]{}").lower()
+        for token in raw_text.split()
+    ]
+
+    labels = [
+        token for token in tokens
+        if token in {"relevant", "irrelevant"}
+    ]
+
+    if labels:
+        status = labels[0]
+    else:
+        # If the grader fails, try answering from the retrieved
+        # context instead of crashing the graph.
+        print(
+            "Warning: invalid retrieval grader response:",
+            repr(raw_text)
+        )
+        print("Defaulting to 'relevant' for this question.")
+        status = "relevant"
+
+    print("Retrieval grader status:", status)
+
+    return {"retrieval_status": status}
+
+
 
 
 def route_retrieval_node(state):
     return state["retrieval_status"]
+
+
+
+def response_to_text(content):
+    if isinstance(content, str):
+        return content
+
+    if isinstance(content, list):
+        parts = []
+
+        for item in content:
+            if isinstance(item, dict) and item.get("type") == "text":
+                parts.append(item.get("text", ""))
+            elif isinstance(item, str):
+                parts.append(item)
+
+        return "\n".join(part for part in parts if part).strip()
+
+    return str(content) if content is not None else ""
+
 
 
 def generate_node(state):
@@ -145,7 +208,7 @@ def generate_node(state):
         "question": state["question"]
     })
     return {
-        "answer":response.content
+    "answer": response_to_text(response.content)
     }
 
 
@@ -186,8 +249,19 @@ def web_generate_node(state):
         "question":state["question"]
     })
     return{
-        "answer":response.content
+        "answer":response_to_text(response.content)
     }
+
+
+def no_web_node(state):
+    return {
+        "answer": (
+            "I couldn't find this information in the documents, "
+            "and web search was not requested."
+        )
+    }
+
+
 
 def save_node(state):
     print(state["messages"])
@@ -216,6 +290,7 @@ graph.add_node("retrieve",retriever_node)
 graph.add_node("grader",grader_node)
 graph.add_node("generate",generate_node)
 graph.add_node("permission",permission_node)
+graph.add_node("no_web", no_web_node)
 graph.add_node("web_search",web_search_node)
 graph.add_node("web_generate",web_generate_node)
 graph.add_node("save",save_node)
@@ -243,8 +318,8 @@ graph.add_conditional_edges(
     "permission",
     route_web_permission,
     {
-        "yes":"web_search",
-        "no":END
+        "yes": "web_search",
+        "no": "no_web"
     }
 )
 
@@ -256,6 +331,7 @@ graph.add_edge("retrieve","grader")
 graph.add_edge("generate","save")
 graph.add_edge("web_search","web_generate")
 graph.add_edge("web_generate","save")
+graph.add_edge("no_web", END)
 graph.add_edge("save",END)
 
 

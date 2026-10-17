@@ -13,12 +13,9 @@ from docx import Document as WordDocument
 from pptx import Presentation
 from openpyxl import load_workbook
 from bs4 import BeautifulSoup
-
 from langchain_core.documents import Document
 
-
 load_dotenv()
-
 
 def load_file_documents(file_path):
     path = Path(file_path)
@@ -251,7 +248,7 @@ def create_rag(file_paths):
         print(f"Indexed: {path.name}")
 
     return vectors.as_retriever(
-        search_kwargs={"k": 2}
+        search_kwargs={"k": 10}
     )
 
 
