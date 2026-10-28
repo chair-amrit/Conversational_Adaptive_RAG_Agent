@@ -81,7 +81,7 @@ def load_file_documents(file_path):
     elif ext in {".txt", ".md"}:
         text = path.read_text(encoding="utf-8-sig", errors="replace")
 
-        elif ext == ".csv":
+    elif ext == ".csv":
         with path.open(
             "r", encoding="utf-8-sig", newline=""
         ) as file:
@@ -308,6 +308,8 @@ def create_rag(file_paths):
             doc.metadata["content_hash"] = content_hash
 
         chunks = splitter.split_documents(docs)
+        for chunk_index, chunk in enumerate(chunks):
+            chunk.metadata["chunk_index"] = chunk_index
 
         if not chunks:
             print(f"No chunks created: {path.name}")
@@ -326,6 +328,48 @@ def create_rag(file_paths):
     return vectors.as_retriever(
         search_kwargs={"k": 10}
     )
+
+
+
+
+
+
+def get_record_by_index(file_path, record_index):
+    if isinstance(record_index, bool) or not isinstance(
+        record_index, int
+    ) or record_index < 1:
+        raise ValueError("record_index must be a positive integer")
+
+    source_path = str(Path(file_path).resolve())
+
+    # Metadata lookup does not require embedding a query.
+    vectors = Chroma(
+        collection_name="my_rag_multiformat",
+        persist_directory="./chroma_db",
+    )
+
+    results = vectors.get(
+        where={
+            "$and": [
+                {"source": source_path},
+                {"record_index": record_index},
+            ]
+        },
+        include=["documents", "metadatas"],
+    )
+
+    if not results["ids"]:
+        return None
+
+    chunks = sorted(
+        zip(results["documents"], results["metadatas"]),
+        key=lambda item: item[1].get("chunk_index", 0),
+    )
+
+    return "\n".join(document for document, _ in chunks)
+
+
+
 
 
 
