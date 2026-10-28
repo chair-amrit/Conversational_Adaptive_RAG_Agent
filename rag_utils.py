@@ -81,13 +81,89 @@ def load_file_documents(file_path):
     elif ext in {".txt", ".md"}:
         text = path.read_text(encoding="utf-8-sig", errors="replace")
 
-    elif ext == ".csv":
+        elif ext == ".csv":
         with path.open(
             "r", encoding="utf-8-sig", newline=""
         ) as file:
-            text = "\n".join(
-                " | ".join(row) for row in csv.reader(file)
+            sample = file.read(8192)
+            file.seek(0)
+
+            # Detect whether the CSV has a header row.
+            # Sniffer is heuristic, so this detection is not perfect.
+            try:
+                has_header = csv.Sniffer().has_header(sample)
+            except csv.Error:
+                has_header = True
+
+            rows = [
+                [cell.strip() for cell in row]
+                for row in csv.reader(file)
+            ]
+
+        # Ignore completely blank rows.
+        rows = [
+            row for row in rows
+            if any(value for value in row)
+        ]
+
+        if not rows:
+            return []
+
+        if has_header:
+            raw_headers = rows[0]
+            data_rows = rows[1:]
+        else:
+            raw_headers = []
+            data_rows = rows
+
+        # Support inconsistent row lengths too.
+        column_count = max(len(row) for row in rows)
+
+        headers = []
+        header_counts = {}
+
+        for i in range(column_count):
+            label = (
+                raw_headers[i].strip()
+                if i < len(raw_headers) and raw_headers[i].strip()
+                else f"column_{i + 1}"
             )
+
+            header_counts[label] = header_counts.get(label, 0) + 1
+
+            if header_counts[label] > 1:
+                label = f"{label}_{header_counts[label]}"
+
+            headers.append(label)
+
+        docs = []
+
+        for record_index, row in enumerate(data_rows, start=1):
+            values = row + [""] * (column_count - len(row))
+
+            fields = [
+                f"{headers[i]}: {value}"
+                for i, value in enumerate(values)
+                if value
+            ]
+
+            if not fields:
+                continue
+
+            docs.append(
+                Document(
+                    page_content=(
+                        f"Record index: {record_index}\n"
+                        + "\n".join(fields)
+                    ),
+                    metadata={
+                        **metadata,
+                        "record_index": record_index,
+                    },
+                )
+            )
+
+        return docs
 
     elif ext == ".xlsx":
         workbook = load_workbook(
