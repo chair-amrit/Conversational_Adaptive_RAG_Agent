@@ -307,7 +307,21 @@ def create_rag(file_paths):
         for doc in docs:
             doc.metadata["content_hash"] = content_hash
 
-        chunks = splitter.split_documents(docs)
+        if path.suffix.lower() == ".csv":
+            chunks = []
+
+        for doc in docs:
+            if len(doc.page_content) <= 1500:
+                chunks.append(doc)
+            else:
+                chunks.extend(splitter.split_documents([doc]))
+        else:
+            chunks = splitter.split_documents(docs)
+
+        for chunk_index, chunk in enumerate(chunks):
+            chunk.metadata["chunk_index"] = chunk_index
+
+        print(f"Prepared {len(chunks)} chunks for {path.name}")
         for chunk_index, chunk in enumerate(chunks):
             chunk.metadata["chunk_index"] = chunk_index
 
