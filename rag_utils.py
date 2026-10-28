@@ -85,9 +85,85 @@ def load_file_documents(file_path):
         with path.open(
             "r", encoding="utf-8-sig", newline=""
         ) as file:
-            text = "\n".join(
-                " | ".join(row) for row in csv.reader(file)
+            sample = file.read(8192)
+            file.seek(0)
+
+            # Detect whether the CSV has a header row.
+            # Sniffer is heuristic, so this detection is not perfect.
+            try:
+                has_header = csv.Sniffer().has_header(sample)
+            except csv.Error:
+                has_header = True
+
+            rows = [
+                [cell.strip() for cell in row]
+                for row in csv.reader(file)
+            ]
+
+        # Ignore completely blank rows.
+        rows = [
+            row for row in rows
+            if any(value for value in row)
+        ]
+
+        if not rows:
+            return []
+
+        if has_header:
+            raw_headers = rows[0]
+            data_rows = rows[1:]
+        else:
+            raw_headers = []
+            data_rows = rows
+
+        # Support inconsistent row lengths too.
+        column_count = max(len(row) for row in rows)
+
+        headers = []
+        header_counts = {}
+
+        for i in range(column_count):
+            label = (
+                raw_headers[i].strip()
+                if i < len(raw_headers) and raw_headers[i].strip()
+                else f"column_{i + 1}"
             )
+
+            header_counts[label] = header_counts.get(label, 0) + 1
+
+            if header_counts[label] > 1:
+                label = f"{label}_{header_counts[label]}"
+
+            headers.append(label)
+
+        docs = []
+
+        for record_index, row in enumerate(data_rows, start=1):
+            values = row + [""] * (column_count - len(row))
+
+            fields = [
+                f"{headers[i]}: {value}"
+                for i, value in enumerate(values)
+                if value
+            ]
+
+            if not fields:
+                continue
+
+            docs.append(
+                Document(
+                    page_content=(
+                        f"Record index: {record_index}\n"
+                        + "\n".join(fields)
+                    ),
+                    metadata={
+                        **metadata,
+                        "record_index": record_index,
+                    },
+                )
+            )
+
+        return docs
 
     elif ext == ".xlsx":
         workbook = load_workbook(
@@ -231,7 +307,23 @@ def create_rag(file_paths):
         for doc in docs:
             doc.metadata["content_hash"] = content_hash
 
-        chunks = splitter.split_documents(docs)
+        if path.suffix.lower() == ".csv":
+            chunks = []
+
+        for doc in docs:
+            if len(doc.page_content) <= 1500:
+                chunks.append(doc)
+            else:
+                chunks.extend(splitter.split_documents([doc]))
+        else:
+            chunks = splitter.split_documents(docs)
+
+        for chunk_index, chunk in enumerate(chunks):
+            chunk.metadata["chunk_index"] = chunk_index
+
+        print(f"Prepared {len(chunks)} chunks for {path.name}")
+        for chunk_index, chunk in enumerate(chunks):
+            chunk.metadata["chunk_index"] = chunk_index
 
         if not chunks:
             print(f"No chunks created: {path.name}")
@@ -250,6 +342,48 @@ def create_rag(file_paths):
     return vectors.as_retriever(
         search_kwargs={"k": 10}
     )
+
+
+
+
+
+
+def get_record_by_index(file_path, record_index):
+    if isinstance(record_index, bool) or not isinstance(
+        record_index, int
+    ) or record_index < 1:
+        raise ValueError("record_index must be a positive integer")
+
+    source_path = str(Path(file_path).resolve())
+
+    # Metadata lookup does not require embedding a query.
+    vectors = Chroma(
+        collection_name="my_rag_multiformat",
+        persist_directory="./chroma_db",
+    )
+
+    results = vectors.get(
+        where={
+            "$and": [
+                {"source": source_path},
+                {"record_index": record_index},
+            ]
+        },
+        include=["documents", "metadatas"],
+    )
+
+    if not results["ids"]:
+        return None
+
+    chunks = sorted(
+        zip(results["documents"], results["metadatas"]),
+        key=lambda item: item[1].get("chunk_index", 0),
+    )
+
+    return "\n".join(document for document, _ in chunks)
+
+
+
 
 
 
