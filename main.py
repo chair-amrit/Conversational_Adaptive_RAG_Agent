@@ -124,6 +124,17 @@ class State(TypedDict):
 
 #check query and determine if chat/valid question/invalid query and update route in state
 def router_node(state):
+    record_index = extract_record_index(state["question"])
+    if record_index is not None:
+        record_path = resolve_csv_path(state["question"])
+
+        if record_path is not None:
+            return {
+                "route": "record_lookup",
+                "record_path": record_path,
+                "record_index": record_index,
+                "record_found": False,
+            }
     chain=router_chain()
     response=chain.invoke({
         "query":state["question"]
