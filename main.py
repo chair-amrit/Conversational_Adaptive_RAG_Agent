@@ -510,7 +510,10 @@ while True:
         "messages":[],
         "route":"",
         "web_permission":"",
-        "retrieval_status":""
+        "retrieval_status":"",
+        "record_path": "",
+        "record_index": 0,
+        "record_found": False,
         },config=config
     )
     print("\nAgent:",result["answer"])
