@@ -1,12 +1,14 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-from rag_utils import create_rag
+from rag_utils import create_rag, get_record_by_index
 from llm_utils import generate_chain , tav_search , web_chain , router_chain , rewrite_chain , retrieval_grader
 from typing import Annotated
 from langgraph.graph.message import add_messages
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
 import os
+import re
+from pathlib import Path
 
 pdf_paths = [
     r"D:\mycodes\langchain\prac_files\finetune.pdf",
@@ -22,6 +24,89 @@ pdf_paths = [
 
 retriever = create_rag(pdf_paths)
 
+# Generic words that should not be used to identify a filename.
+FILE_NAME_STOPWORDS = {
+    "the", "our", "my", "a", "an", "of", "from", "in", "for",
+    "me", "please", "get", "show", "give", "find", "tell",
+    "details", "detail", "information", "about", "what", "is",
+    "are", "and", "with", "this", "that", "response", "responses",
+    "record", "records", "row", "rows", "entry", "entries",
+    "item", "items", "number", "no", "csv", "file", "dataset",
+    "data", "th", "st", "nd", "rd",
+}
+
+
+def extract_record_index(query):
+    patterns = [
+        r"\b(\d+)\s*(?:st|nd|rd|th)\s+"
+        r"(?:response|record|row|entry|item)s?\b",
+
+        r"\b(?:response|record|row|entry|item)s?\s*"
+        r"(?:number|no\.?|#)?\s*(\d+)\b",
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, query, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+
+    return None
+
+
+def normalize_tokens(text):
+    tokens = {
+        token
+        for token in re.findall(r"[a-z0-9]+", text.lower())
+        if token.isalpha()
+    }
+
+    # Basic singular/plural matching, e.g. transactions/transaction.
+    expanded = set(tokens)
+    for token in tokens:
+        if len(token) > 4 and token.endswith("s"):
+            expanded.add(token[:-1])
+
+    return expanded
+
+
+def resolve_csv_path(query):
+    candidates = [
+        Path(file_path).resolve()
+        for file_path in pdf_paths
+        if Path(file_path).suffix.lower() == ".csv"
+    ]
+
+    if not candidates:
+        return None
+
+    query_tokens = (
+        normalize_tokens(query) - FILE_NAME_STOPWORDS
+    )
+
+    # A generic request such as "show row 12" can use the
+    # sole CSV, but not choose arbitrarily between multiple CSVs.
+    if not query_tokens:
+        if len(candidates) == 1:
+            return str(candidates[0])
+        return None
+
+    scores = []
+    for path in candidates:
+        filename_tokens = normalize_tokens(path.stem)
+        filename_tokens -= FILE_NAME_STOPWORDS
+        scores.append(
+            len(query_tokens & filename_tokens)
+        )
+
+    best_score = max(scores)
+
+    # No filename match, or multiple equally likely files:
+    # don't guess which CSV the user intended.
+    if best_score == 0 or scores.count(best_score) != 1:
+        return None
+
+    return str(candidates[scores.index(best_score)])
+
 #LangGraph needs to know what data exists in the state.
 class State(TypedDict):
     question: str
@@ -33,15 +118,74 @@ class State(TypedDict):
     route: str
     web_permission: str
     retrieval_status: str
+    record_path: str
+    record_index: int
+    record_found: bool
 
 #check query and determine if chat/valid question/invalid query and update route in state
 def router_node(state):
+    record_index = extract_record_index(state["question"])
+    if record_index is not None:
+        record_path = resolve_csv_path(state["question"])
+
+        if record_path is not None:
+            return {
+                "route": "record_lookup",
+                "record_path": record_path,
+                "record_index": record_index,
+                "record_found": False,
+            }
     chain=router_chain()
     response=chain.invoke({
         "query":state["question"]
     })
     return {
         "route": response.content.strip().lower().replace(".", "")
+    }
+
+def record_lookup_node(state):
+    record = get_record_by_index(
+        state["record_path"],
+        state["record_index"],
+    )
+
+    if record is None:
+        print(
+            f"Record {state['record_index']} not found in "
+            f"{Path(state['record_path']).name}"
+        )
+        return {
+            "record_found": False,
+            "context": "",
+        }
+
+    source_name = Path(state["record_path"]).name
+
+    print(
+        f"Exact lookup: record {state['record_index']} "
+        f"from {source_name}"
+    )
+
+    return {
+        "record_found": True,
+        "context": (
+            f"Exact record retrieved from: {source_name}\n"
+            f"Record index: {state['record_index']}\n\n"
+            f"{record}"
+        ),
+    }
+
+
+def route_record_lookup(state):
+    return "found" if state["record_found"] else "not_found"
+
+
+def record_not_found_node(state):
+    return {
+        "answer": (
+            f"I couldn't find record {state['record_index']} "
+            f"in {Path(state['record_path']).name}."
+        )
     }
 
 #fuction to return route from state
@@ -294,6 +438,8 @@ graph.add_node("no_web", no_web_node)
 graph.add_node("web_search",web_search_node)
 graph.add_node("web_generate",web_generate_node)
 graph.add_node("save",save_node)
+graph.add_node("record_lookup", record_lookup_node)
+graph.add_node("record_not_found", record_not_found_node)
 
 #check query and redirect to appropriate node
 graph.add_conditional_edges(
@@ -302,7 +448,16 @@ graph.add_conditional_edges(
     {
         "chat":"chat_node",
         "nonsense":"invalid_node",
-        "doc":"rewrite"
+        "doc":"rewrite",
+        "record_lookup": "record_lookup",
+    }
+)
+graph.add_conditional_edges(
+    "record_lookup",
+    route_record_lookup,
+    {
+        "found": "generate",
+        "not_found": "record_not_found",
     }
 )
 graph.add_conditional_edges(
@@ -331,8 +486,10 @@ graph.add_edge("retrieve","grader")
 graph.add_edge("generate","save")
 graph.add_edge("web_search","web_generate")
 graph.add_edge("web_generate","save")
+graph.add_edge("record_not_found", "save")
 graph.add_edge("no_web", END)
 graph.add_edge("save",END)
+
 
 
 app = graph.compile(
@@ -353,7 +510,10 @@ while True:
         "messages":[],
         "route":"",
         "web_permission":"",
-        "retrieval_status":""
+        "retrieval_status":"",
+        "record_path": "",
+        "record_index": 0,
+        "record_found": False,
         },config=config
     )
     print("\nAgent:",result["answer"])
