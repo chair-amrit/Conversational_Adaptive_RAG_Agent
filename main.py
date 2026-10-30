@@ -438,6 +438,8 @@ graph.add_node("no_web", no_web_node)
 graph.add_node("web_search",web_search_node)
 graph.add_node("web_generate",web_generate_node)
 graph.add_node("save",save_node)
+graph.add_node("record_lookup", record_lookup_node)
+graph.add_node("record_not_found", record_not_found_node)
 
 #check query and redirect to appropriate node
 graph.add_conditional_edges(
@@ -446,7 +448,16 @@ graph.add_conditional_edges(
     {
         "chat":"chat_node",
         "nonsense":"invalid_node",
-        "doc":"rewrite"
+        "doc":"rewrite",
+        "record_lookup": "record_lookup",
+    }
+)
+graph.add_conditional_edges(
+    "record_lookup",
+    route_record_lookup,
+    {
+        "found": "generate",
+        "not_found": "record_not_found",
     }
 )
 graph.add_conditional_edges(
@@ -475,8 +486,10 @@ graph.add_edge("retrieve","grader")
 graph.add_edge("generate","save")
 graph.add_edge("web_search","web_generate")
 graph.add_edge("web_generate","save")
+graph.add_edge("record_not_found", "save")
 graph.add_edge("no_web", END)
 graph.add_edge("save",END)
+
 
 
 app = graph.compile(
