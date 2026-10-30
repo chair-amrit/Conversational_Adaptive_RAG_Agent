@@ -143,6 +143,51 @@ def router_node(state):
         "route": response.content.strip().lower().replace(".", "")
     }
 
+def record_lookup_node(state):
+    record = get_record_by_index(
+        state["record_path"],
+        state["record_index"],
+    )
+
+    if record is None:
+        print(
+            f"Record {state['record_index']} not found in "
+            f"{Path(state['record_path']).name}"
+        )
+        return {
+            "record_found": False,
+            "context": "",
+        }
+
+    source_name = Path(state["record_path"]).name
+
+    print(
+        f"Exact lookup: record {state['record_index']} "
+        f"from {source_name}"
+    )
+
+    return {
+        "record_found": True,
+        "context": (
+            f"Exact record retrieved from: {source_name}\n"
+            f"Record index: {state['record_index']}\n\n"
+            f"{record}"
+        ),
+    }
+
+
+def route_record_lookup(state):
+    return "found" if state["record_found"] else "not_found"
+
+
+def record_not_found_node(state):
+    return {
+        "answer": (
+            f"I couldn't find record {state['record_index']} "
+            f"in {Path(state['record_path']).name}."
+        )
+    }
+
 #fuction to return route from state
 def route_query(state):
     return state["route"]
