@@ -118,6 +118,9 @@ class State(TypedDict):
     route: str
     web_permission: str
     retrieval_status: str
+    record_path: str
+    record_index: int
+    record_found: bool
 
 #check query and determine if chat/valid question/invalid query and update route in state
 def router_node(state):
