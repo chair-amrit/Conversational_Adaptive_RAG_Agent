@@ -253,24 +253,7 @@ def create_rag(file_paths):
 
         docs = load_file_documents(path)
 
-        if not docs:
-            print(f"No readable text: {path.name}")
-            continue
-
-        # Create a normalized content fingerprint
-        normalized_text = " ".join(
-            " ".join(doc.page_content for doc in docs).split()
-        ).casefold()
-
-        if not normalized_text:
-            print(f"No text to index: {path.name}")
-            continue
-
-        content_hash = hashlib.sha256(
-            normalized_text.encode("utf-8")
-        ).hexdigest()
-
-        # Find chunks already associated with this exact file path
+        # Get currently indexed chunks for this file.
         source_records = vectors.get(
             where={"source": source_path},
             include=["metadatas"],
@@ -279,65 +262,172 @@ def create_rag(file_paths):
         old_ids = source_records["ids"]
         old_metadata = source_records["metadatas"] or []
 
-        # If this file is unchanged, reuse its existing chunks
-        if old_ids and all(
-            metadata.get("content_hash") == content_hash
-            for metadata in old_metadata
-        ):
-            print(f"Already indexed: {path.name}")
+        # Remove stale indexed content if the file is now empty.
+        if not docs:
+            if old_ids:
+                vectors.delete(ids=old_ids)
+                print(f"Removed empty document index: {path.name}")
+            else:
+                print(f"No readable text: {path.name}")
             continue
 
-        # Keep old chunks until the replacement is indexed successfully.
-        if old_ids:
-            print(f"File changed; preparing safe update: {path.name}")
+        # Generate a content fingerprint.
+        normalized_text = " ".join(
+            " ".join(doc.page_content for doc in docs).split()
+        ).casefold()
 
-        # Detect identical content in other files.
-        duplicate_ids = vectors.get(
-            where={"content_hash": content_hash},
-            limit=1,
-        )["ids"]
+        if not normalized_text:
+            if old_ids:
+                vectors.delete(ids=old_ids)
+                print(f"Removed empty document index: {path.name}")
+            else:
+                print(f"No text to index: {path.name}")
+            continue
 
-        if duplicate_ids:
-            print(
-                f"Duplicate content detected. "
-                f"Indexing {path.name} separately."
-            )
+        content_hash = hashlib.sha256(
+            normalized_text.encode("utf-8")
+        ).hexdigest()
 
-        # Add the content hash before splitting.
+        # Attach the content fingerprint to every document.
         for doc in docs:
             doc.metadata["content_hash"] = content_hash
 
+        # Create chunks.
         if path.suffix.lower() == ".csv":
             chunks = []
 
-        for doc in docs:
-            if len(doc.page_content) <= 1500:
-                chunks.append(doc)
-            else:
-                chunks.extend(splitter.split_documents([doc]))
+            for doc in docs:
+                if len(doc.page_content) <= 1500:
+                    chunks.append(doc)
+                else:
+                    chunks.extend(
+                        splitter.split_documents([doc])
+                    )
         else:
             chunks = splitter.split_documents(docs)
-
-        for chunk_index, chunk in enumerate(chunks):
-            chunk.metadata["chunk_index"] = chunk_index
-
-        print(f"Prepared {len(chunks)} chunks for {path.name}")
-        for chunk_index, chunk in enumerate(chunks):
-            chunk.metadata["chunk_index"] = chunk_index
 
         if not chunks:
             print(f"No chunks created: {path.name}")
             continue
 
-        # First, index the new content.
-        vectors.add_documents(chunks)
+        # Assign a stable position to each chunk.
+        for chunk_index, chunk in enumerate(chunks):
+            chunk.metadata["chunk_index"] = chunk_index
 
-        # Only after successful indexing, remove the old chunks.
+        # Skip only when the existing index is complete.
+        existing_indices = {
+            metadata.get("chunk_index")
+            for metadata in old_metadata
+        }
+
+        expected_indices = set(range(len(chunks)))
+
+        already_complete = (
+            bool(old_ids)
+            and len(old_ids) == len(chunks)
+            and all(
+                metadata.get("content_hash") == content_hash
+                for metadata in old_metadata
+            )
+            and existing_indices == expected_indices
+        )
+
+        if already_complete:
+            print(f"Already indexed: {path.name}")
+            continue
+
         if old_ids:
-            vectors.delete(ids=old_ids)
-            print(f"Replaced old chunks: {path.name}")
+            print(
+                f"File changed; preparing safe update: {path.name}"
+            )
 
-        print(f"Indexed: {path.name}")
+        # Check whether identical content exists in another file.
+        duplicate_records = vectors.get(
+            where={"content_hash": content_hash},
+            include=["metadatas"],
+            limit=1,
+        )
+
+        duplicate_sources = [
+            metadata.get("source")
+            for metadata in duplicate_records["metadatas"] or []
+        ]
+
+        if any(source != source_path for source in duplicate_sources):
+            print(
+                f"Duplicate content found in another file. "
+                f"Indexing separately: {path.name}"
+            )
+
+        # Generate deterministic IDs for the new chunks.
+        chunk_ids = [
+            hashlib.sha256(
+                (
+                    f"{source_path}\0"
+                    f"{content_hash}\0"
+                    f"{chunk_index}\0"
+                    f"{chunk.page_content}"
+                ).encode("utf-8")
+            ).hexdigest()
+            for chunk_index, chunk in enumerate(chunks)
+        ]
+
+        print(
+            f"Prepared {len(chunks)} chunks for {path.name}"
+        )
+
+        # Index new chunks using stable IDs.
+        vectors.add_documents(
+            chunks,
+            ids=chunk_ids,
+        )
+
+        # Verify every expected chunk exists before cleanup.
+        indexed_records = vectors.get(
+            ids=chunk_ids,
+            include=["metadatas"],
+        )
+
+        indexed_ids = set(indexed_records["ids"])
+        expected_ids = set(chunk_ids)
+
+        missing_ids = expected_ids - indexed_ids
+
+        if missing_ids:
+            raise RuntimeError(
+                f"Indexing incomplete for {path.name}. "
+                f"{len(missing_ids)} chunks are missing. "
+                "Old chunks have been preserved."
+            )
+
+        # Remove old and incomplete chunks only after verification.
+        current_records = vectors.get(
+            where={"source": source_path}
+        )
+
+        stale_ids = [
+            doc_id
+            for doc_id in current_records["ids"]
+            if doc_id not in expected_ids
+        ]
+
+        if stale_ids:
+            vectors.delete(ids=stale_ids)
+
+        # Verify that only the expected version remains.
+        remaining_ids = set(
+            vectors.get(
+                where={"source": source_path}
+            )["ids"]
+        )
+
+        if remaining_ids != expected_ids:
+            raise RuntimeError(
+                f"Cleanup verification failed for {path.name}. "
+                "Please inspect the indexed records before retrying."
+            )
+
+        print(f"Indexed successfully: {path.name}")
 
     return vectors.as_retriever(
         search_kwargs={"k": 10}
