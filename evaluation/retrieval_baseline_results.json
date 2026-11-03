@@ -1,0 +1,1214 @@
+{
+  "dataset": "rag_retrieval_benchmark_v1",
+  "evaluation": "baseline",
+  "summary": {
+    "total_queries": 16,
+    "k": 10,
+    "precision_at_k": 0.10625000000000001,
+    "recall_at_k": 1.0,
+    "mrr": 1.0
+  },
+  "results": [
+    {
+      "question_id": "Q01",
+      "question": "Which file formats are supported by the first release of the RAG service?",
+      "expected_source": "rag_service_design.html",
+      "relevant_chunk_ids": [
+        "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+          "source_file": "rag_service_design.html",
+          "distance": 0.46570247411727905
+        },
+        {
+          "rank": 2,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6014589071273804
+        },
+        {
+          "rank": 3,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.6356982588768005
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6570947766304016
+        },
+        {
+          "rank": 5,
+          "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6619974970817566
+        },
+        {
+          "rank": 6,
+          "chunk_id": "309924ba89bfdbec8e6b8140c7ccd353563c589b9a13e341394b3cf6c9991c13",
+          "source_file": "min_project.pdf",
+          "distance": 0.6758979558944702
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c69859daecc5e404f211bb09107adb3ba5cf89e3e420f803ac57bc0f7e40790c",
+          "source_file": "min_project.pdf",
+          "distance": 0.6880139112472534
+        },
+        {
+          "rank": 8,
+          "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.7080652713775635
+        },
+        {
+          "rank": 9,
+          "chunk_id": "4458e521af039061b1752570656b1ea71c8211e003708934f5fcce609ef2db1e",
+          "source_file": "finetune.pdf",
+          "distance": 0.7097763419151306
+        },
+        {
+          "rank": 10,
+          "chunk_id": "073a87ebd1cd6e4060b7759afe3bd1bc746d01f32956bc53432fdaf19e47cab7",
+          "source_file": "notes.txt",
+          "distance": 0.7140754461288452
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q02",
+      "question": "What initial chunk size and overlap does the RAG design recommend?",
+      "expected_source": "rag_service_design.html",
+      "relevant_chunk_ids": [
+        "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+          "source_file": "rag_service_design.html",
+          "distance": 0.5243628025054932
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6023783683776855
+        },
+        {
+          "rank": 3,
+          "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6034937500953674
+        },
+        {
+          "rank": 4,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.6648191809654236
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6707063913345337
+        },
+        {
+          "rank": 6,
+          "chunk_id": "4458e521af039061b1752570656b1ea71c8211e003708934f5fcce609ef2db1e",
+          "source_file": "finetune.pdf",
+          "distance": 0.6807140111923218
+        },
+        {
+          "rank": 7,
+          "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+          "source_file": "min_project.pdf",
+          "distance": 0.6967995166778564
+        },
+        {
+          "rank": 8,
+          "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6969271898269653
+        },
+        {
+          "rank": 9,
+          "chunk_id": "85d8e05fbdb95ad7e7a9fd7947488ca3725cda8962669a4bf155e0c25fae28c0",
+          "source_file": "min_project.pdf",
+          "distance": 0.701575517654419
+        },
+        {
+          "rank": 10,
+          "chunk_id": "31e3abb88b1c9739d3c88fcdd74b10c6ea6d15549f84d9048d585d15f668574a",
+          "source_file": "notes.txt",
+          "distance": 0.7043905258178711
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q03",
+      "question": "How many initial candidates should retrieval fetch, and how many passages should remain after reranking?",
+      "expected_source": "rag_service_design.html",
+      "relevant_chunk_ids": [
+        "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+        "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.4814867377281189
+        },
+        {
+          "rank": 2,
+          "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+          "source_file": "rag_service_design.html",
+          "distance": 0.4968556761741638
+        },
+        {
+          "rank": 3,
+          "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+          "source_file": "rag_service_design.html",
+          "distance": 0.5449839234352112
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.5505483150482178
+        },
+        {
+          "rank": 5,
+          "chunk_id": "4458e521af039061b1752570656b1ea71c8211e003708934f5fcce609ef2db1e",
+          "source_file": "finetune.pdf",
+          "distance": 0.6355452537536621
+        },
+        {
+          "rank": 6,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.6640785932540894
+        },
+        {
+          "rank": 7,
+          "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6699958443641663
+        },
+        {
+          "rank": 8,
+          "chunk_id": "309924ba89bfdbec8e6b8140c7ccd353563c589b9a13e341394b3cf6c9991c13",
+          "source_file": "min_project.pdf",
+          "distance": 0.6798434257507324
+        },
+        {
+          "rank": 9,
+          "chunk_id": "9b3e52a1748a01f78972fc38cc4752090e7ec80bdc0ae2a5eecbc5095efbc343",
+          "source_file": "finetune.pdf",
+          "distance": 0.6866165399551392
+        },
+        {
+          "rank": 10,
+          "chunk_id": "9ec5d76cf9d88673eda65a8408cb179bf7f54dc20c456d411cd8de121f2b78b9",
+          "source_file": "sample.docx",
+          "distance": 0.6866971254348755
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.2,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q04",
+      "question": "What is the target retrieval Recall@5 in the RAG service design?",
+      "expected_source": "rag_service_design.html",
+      "relevant_chunk_ids": [
+        "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.4329759180545807
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.471951961517334
+        },
+        {
+          "rank": 3,
+          "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+          "source_file": "rag_service_design.html",
+          "distance": 0.5067822933197021
+        },
+        {
+          "rank": 4,
+          "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+          "source_file": "rag_service_design.html",
+          "distance": 0.5895849466323853
+        },
+        {
+          "rank": 5,
+          "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6116606593132019
+        },
+        {
+          "rank": 6,
+          "chunk_id": "68016d9873e37b5ed525a48e12d3d6659e14c3f82385acfe1ad09e46c98e5791",
+          "source_file": "min_project.pdf",
+          "distance": 0.6303369998931885
+        },
+        {
+          "rank": 7,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.6476926803588867
+        },
+        {
+          "rank": 8,
+          "chunk_id": "4458e521af039061b1752570656b1ea71c8211e003708934f5fcce609ef2db1e",
+          "source_file": "finetune.pdf",
+          "distance": 0.6543830633163452
+        },
+        {
+          "rank": 9,
+          "chunk_id": "eb53612f4c7e3c131117ccff18ade255468a00ed07fa3ca77df45f81fbc4cb07",
+          "source_file": "notes.txt",
+          "distance": 0.654508113861084
+        },
+        {
+          "rank": 10,
+          "chunk_id": "486c04014c91c749b3903d71fbb6aa07f46d5ba54d2ea1e715cd499f1a067651",
+          "source_file": "notes.txt",
+          "distance": 0.6582579612731934
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q05",
+      "question": "What is Project Atlas intended to consolidate, and what are its completion-time and adoption targets?",
+      "expected_source": "project_atlas_kickoff.pptx",
+      "relevant_chunk_ids": [
+        "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6716102957725525
+        },
+        {
+          "rank": 2,
+          "chunk_id": "40daf3c5c4c45507f09ad8ec308459b42176863fa287096d49b677d5f50d3023",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6892168521881104
+        },
+        {
+          "rank": 3,
+          "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7002495527267456
+        },
+        {
+          "rank": 4,
+          "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+          "source_file": "min_project.pdf",
+          "distance": 0.7172704935073853
+        },
+        {
+          "rank": 5,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.7189534902572632
+        },
+        {
+          "rank": 6,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.7251191735267639
+        },
+        {
+          "rank": 7,
+          "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7255622744560242
+        },
+        {
+          "rank": 8,
+          "chunk_id": "b536bde54e5f277108d780793ae786357c69c8c78e01f19daa89e814a9e9b1d8",
+          "source_file": "min_project.pdf",
+          "distance": 0.7277674674987793
+        },
+        {
+          "rank": 9,
+          "chunk_id": "83efcd88faddfd00651c641e63b0121d708352a4d2a18228150c314a086bd16e",
+          "source_file": "min_project.pdf",
+          "distance": 0.7329998016357422
+        },
+        {
+          "rank": 10,
+          "chunk_id": "85d8e05fbdb95ad7e7a9fd7947488ca3725cda8962669a4bf155e0c25fae28c0",
+          "source_file": "min_project.pdf",
+          "distance": 0.7341932654380798
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q06",
+      "question": "Who owns implementation and integration during Weeks 4 to 6?",
+      "expected_source": "project_atlas_kickoff.pptx",
+      "relevant_chunk_ids": [
+        "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.5021135807037354
+        },
+        {
+          "rank": 2,
+          "chunk_id": "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6067514419555664
+        },
+        {
+          "rank": 3,
+          "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6711944341659546
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0a998ab3deddb02e83865ab7f0f81331700d3be7469985ef2dc0c0938602056d",
+          "source_file": "notes.txt",
+          "distance": 0.7098886966705322
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7113877534866333
+        },
+        {
+          "rank": 6,
+          "chunk_id": "3137b3cb2776b307dc4db743b8948717d5d69f9391ddfe3661dfd9d4cd28b6e3",
+          "source_file": "min_project.pdf",
+          "distance": 0.7138487100601196
+        },
+        {
+          "rank": 7,
+          "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+          "source_file": "min_project.pdf",
+          "distance": 0.7184793949127197
+        },
+        {
+          "rank": 8,
+          "chunk_id": "55bb479a930a667b851113b04212d1218a5fb35ec45f91d8cce687a86baaf511",
+          "source_file": "notes.txt",
+          "distance": 0.7217100858688354
+        },
+        {
+          "rank": 9,
+          "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+          "source_file": "sample.docx",
+          "distance": 0.7247533798217773
+        },
+        {
+          "rank": 10,
+          "chunk_id": "28234a56d23956fb8d764f40ce7639c582b508a5603e5a0eb11d41e3da60bf77",
+          "source_file": "notes.txt",
+          "distance": 0.7267829179763794
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q07",
+      "question": "What mitigations are proposed for the risk of low pilot adoption?",
+      "expected_source": "project_atlas_kickoff.pptx",
+      "relevant_chunk_ids": [
+        "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.43982332944869995
+        },
+        {
+          "rank": 2,
+          "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6101930737495422
+        },
+        {
+          "rank": 3,
+          "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6293190121650696
+        },
+        {
+          "rank": 4,
+          "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+          "source_file": "min_project.pdf",
+          "distance": 0.6573646068572998
+        },
+        {
+          "rank": 5,
+          "chunk_id": "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.6695523262023926
+        },
+        {
+          "rank": 6,
+          "chunk_id": "85d8e05fbdb95ad7e7a9fd7947488ca3725cda8962669a4bf155e0c25fae28c0",
+          "source_file": "min_project.pdf",
+          "distance": 0.6858934760093689
+        },
+        {
+          "rank": 7,
+          "chunk_id": "cdaede28d541bf69ac588aac45d4985057b40ba6a5f33c0e4674c61ad3ed9539",
+          "source_file": "min_project.pdf",
+          "distance": 0.6880679130554199
+        },
+        {
+          "rank": 8,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.6934618353843689
+        },
+        {
+          "rank": 9,
+          "chunk_id": "9b44b863d33abbf7251c6bc26cb36597e2603b9a6b265bb9637314257cbfdffe",
+          "source_file": "min_project.pdf",
+          "distance": 0.7019227147102356
+        },
+        {
+          "rank": 10,
+          "chunk_id": "3137b3cb2776b307dc4db743b8948717d5d69f9391ddfe3661dfd9d4cd28b6e3",
+          "source_file": "min_project.pdf",
+          "distance": 0.702147364616394
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q08",
+      "question": "When should unresolved blockers be escalated?",
+      "expected_source": "project_atlas_kickoff.pptx",
+      "relevant_chunk_ids": [
+        "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.5887452960014343
+        },
+        {
+          "rank": 2,
+          "chunk_id": "9b44b863d33abbf7251c6bc26cb36597e2603b9a6b265bb9637314257cbfdffe",
+          "source_file": "min_project.pdf",
+          "distance": 0.7064740657806396
+        },
+        {
+          "rank": 3,
+          "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7195192575454712
+        },
+        {
+          "rank": 4,
+          "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7316632866859436
+        },
+        {
+          "rank": 5,
+          "chunk_id": "83efcd88faddfd00651c641e63b0121d708352a4d2a18228150c314a086bd16e",
+          "source_file": "min_project.pdf",
+          "distance": 0.7414729595184326
+        },
+        {
+          "rank": 6,
+          "chunk_id": "7b3376ebff15adc803f64648e134dedb4b29bdc8ea8cfaef198318d92d189cba",
+          "source_file": "min_project.pdf",
+          "distance": 0.74986332654953
+        },
+        {
+          "rank": 7,
+          "chunk_id": "e1011654233485597a6b689f0a6797c82caeb547c0b381b2b94b5125b29b29ee",
+          "source_file": "min_project.pdf",
+          "distance": 0.7631970047950745
+        },
+        {
+          "rank": 8,
+          "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+          "source_file": "project_atlas_kickoff.pptx",
+          "distance": 0.7671659588813782
+        },
+        {
+          "rank": 9,
+          "chunk_id": "b536bde54e5f277108d780793ae786357c69c8c78e01f19daa89e814a9e9b1d8",
+          "source_file": "min_project.pdf",
+          "distance": 0.7724227905273438
+        },
+        {
+          "rank": 10,
+          "chunk_id": "f32901f707ea763ceb16026ddaa71a359301e63ff9c448c670b9020e263ceab2",
+          "source_file": "min_project.pdf",
+          "distance": 0.7759794592857361
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q09",
+      "question": "Which asset class does the strategy use, and what liquidity rule defines its selection universe?",
+      "expected_source": "quant_strategy_spec.json",
+      "relevant_chunk_ids": [
+        "5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6055789589881897
+        },
+        {
+          "rank": 2,
+          "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6590385437011719
+        },
+        {
+          "rank": 3,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6977212429046631
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.7112671732902527
+        },
+        {
+          "rank": 5,
+          "chunk_id": "4483b4a8d3a5be75b5f0ecc01f09cb83102953a6908aa0d307687dfce704b788",
+          "source_file": "notes.txt",
+          "distance": 0.751114547252655
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.7575581073760986
+        },
+        {
+          "rank": 7,
+          "chunk_id": "adce37e7860e0a26ddf5a6666a9b35158dc85353b120fc17263195d2c8c2209e",
+          "source_file": "notes.txt",
+          "distance": 0.7774905562400818
+        },
+        {
+          "rank": 8,
+          "chunk_id": "5470b9b4e82805068bbb09a7c2b9ac2fad2e3bbe396537d6ab727c6091d74ff4",
+          "source_file": "min_project.pdf",
+          "distance": 0.7818223237991333
+        },
+        {
+          "rank": 9,
+          "chunk_id": "3802bf6586a3f65b5e17309213348a50520237fd3ad230fcf6417bfc4d1ce47b",
+          "source_file": "min_project.pdf",
+          "distance": 0.7838844060897827
+        },
+        {
+          "rank": 10,
+          "chunk_id": "cb5d84fbc13e3be3c119b9aa7671e1d6fe2a73270b9522579c088af510daa776",
+          "source_file": "notes.txt",
+          "distance": 0.7846581935882568
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q10",
+      "question": "What are the entry and exit z-score thresholds for the strategy?",
+      "expected_source": "quant_strategy_spec.json",
+      "relevant_chunk_ids": [
+        "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.4129505753517151
+        },
+        {
+          "rank": 2,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.4673483967781067
+        },
+        {
+          "rank": 3,
+          "chunk_id": "5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.5434946417808533
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6697984337806702
+        },
+        {
+          "rank": 5,
+          "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+          "source_file": "rag_service_design.html",
+          "distance": 0.7096403241157532
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.7448596954345703
+        },
+        {
+          "rank": 7,
+          "chunk_id": "9b44b863d33abbf7251c6bc26cb36597e2603b9a6b265bb9637314257cbfdffe",
+          "source_file": "min_project.pdf",
+          "distance": 0.752740740776062
+        },
+        {
+          "rank": 8,
+          "chunk_id": "837abd9c1a76943ecb99bc2bd6b16ff8f821700757d8260fb89e99458ed5def1",
+          "source_file": "min_project.pdf",
+          "distance": 0.7563514709472656
+        },
+        {
+          "rank": 9,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.7673314809799194
+        },
+        {
+          "rank": 10,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.7700437307357788
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q11",
+      "question": "How should historical prices be adjusted for corporate actions?",
+      "expected_source": "quant_strategy_spec.json",
+      "relevant_chunk_ids": [
+        "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6028710603713989
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.7545526027679443
+        },
+        {
+          "rank": 3,
+          "chunk_id": "4483b4a8d3a5be75b5f0ecc01f09cb83102953a6908aa0d307687dfce704b788",
+          "source_file": "notes.txt",
+          "distance": 0.7594969868659973
+        },
+        {
+          "rank": 4,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.7954858541488647
+        },
+        {
+          "rank": 5,
+          "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.8140356540679932
+        },
+        {
+          "rank": 6,
+          "chunk_id": "3802bf6586a3f65b5e17309213348a50520237fd3ad230fcf6417bfc4d1ce47b",
+          "source_file": "min_project.pdf",
+          "distance": 0.836234450340271
+        },
+        {
+          "rank": 7,
+          "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+          "source_file": "rag_service_design.html",
+          "distance": 0.8363920450210571
+        },
+        {
+          "rank": 8,
+          "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+          "source_file": "rag_service_design.html",
+          "distance": 0.8378397822380066
+        },
+        {
+          "rank": 9,
+          "chunk_id": "cb5d84fbc13e3be3c119b9aa7671e1d6fe2a73270b9522579c088af510daa776",
+          "source_file": "notes.txt",
+          "distance": 0.841884195804596
+        },
+        {
+          "rank": 10,
+          "chunk_id": "f9f99f9271b93e00a606090621d534d4a799559a2ef333ed020f335ef33e87b0",
+          "source_file": "min_project.pdf",
+          "distance": 0.8427395224571228
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q12",
+      "question": "Which performance metrics must be reported during backtesting?",
+      "expected_source": "quant_strategy_spec.json",
+      "relevant_chunk_ids": [
+        "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.5037674903869629
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.5920754671096802
+        },
+        {
+          "rank": 3,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6019648909568787
+        },
+        {
+          "rank": 4,
+          "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6578532457351685
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+          "source_file": "rag_service_design.html",
+          "distance": 0.7045883536338806
+        },
+        {
+          "rank": 6,
+          "chunk_id": "e28239ca800f906aebc509514deb729944c7c2ecf7a5a1ba2cc3df5e7debb445",
+          "source_file": "min_project.pdf",
+          "distance": 0.7112663984298706
+        },
+        {
+          "rank": 7,
+          "chunk_id": "3802bf6586a3f65b5e17309213348a50520237fd3ad230fcf6417bfc4d1ce47b",
+          "source_file": "min_project.pdf",
+          "distance": 0.7160192728042603
+        },
+        {
+          "rank": 8,
+          "chunk_id": "b2e44ba3021f5b2991bb95226df67e22f0f80b37a35effa844965dfcb4a9fe62",
+          "source_file": "notes.txt",
+          "distance": 0.7243249416351318
+        },
+        {
+          "rank": 9,
+          "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+          "source_file": "rag_service_design.html",
+          "distance": 0.726914644241333
+        },
+        {
+          "rank": 10,
+          "chunk_id": "68016d9873e37b5ed525a48e12d3d6659e14c3f82385acfe1ad09e46c98e5791",
+          "source_file": "min_project.pdf",
+          "distance": 0.7300859093666077
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q13",
+      "question": "Which registry task asks for the median delivery delay of urgent orders, and what is its expected output?",
+      "expected_source": "dabstep_task_registry.xlsx",
+      "relevant_chunk_ids": [
+        "5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.5789555311203003
+        },
+        {
+          "rank": 2,
+          "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6191939115524292
+        },
+        {
+          "rank": 3,
+          "chunk_id": "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6366955041885376
+        },
+        {
+          "rank": 4,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6393698453903198
+        },
+        {
+          "rank": 5,
+          "chunk_id": "1cf04c160a165ab6c77fd8e347e7d6ca58853414a4dfd78db4ecb1e423318b7b",
+          "source_file": "min_project.pdf",
+          "distance": 0.6597973108291626
+        },
+        {
+          "rank": 6,
+          "chunk_id": "ce15c70f76f58dc7a6c9ba876186668947dc8c342df61d46c4e5675ea8b48be5",
+          "source_file": "min_project.pdf",
+          "distance": 0.663796067237854
+        },
+        {
+          "rank": 7,
+          "chunk_id": "83efcd88faddfd00651c641e63b0121d708352a4d2a18228150c314a086bd16e",
+          "source_file": "min_project.pdf",
+          "distance": 0.6639321446418762
+        },
+        {
+          "rank": 8,
+          "chunk_id": "f9f99f9271b93e00a606090621d534d4a799559a2ef333ed020f335ef33e87b0",
+          "source_file": "min_project.pdf",
+          "distance": 0.6657854914665222
+        },
+        {
+          "rank": 9,
+          "chunk_id": "afc62d1a65b6bb1ce40f20a988348e357509b4684f32b9e78ab4c569052a940d",
+          "source_file": "min_project.pdf",
+          "distance": 0.6684635281562805
+        },
+        {
+          "rank": 10,
+          "chunk_id": "0e0828bf2ecea20e287988b5d2bbad9ff45cfe91cf10226be61cdb16d1963950",
+          "source_file": "min_project.pdf",
+          "distance": 0.670120120048523
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q14",
+      "question": "Which task requires comparing adjacent weeks to identify the largest increase in support tickets?",
+      "expected_source": "dabstep_task_registry.xlsx",
+      "relevant_chunk_ids": [
+        "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.5411139726638794
+        },
+        {
+          "rank": 2,
+          "chunk_id": "918917e53cdc51e61ebe9e574049acd9f3d409f0c7b8481286f43b48c0c3781f",
+          "source_file": "min_project.pdf",
+          "distance": 0.6765322685241699
+        },
+        {
+          "rank": 3,
+          "chunk_id": "5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6767728924751282
+        },
+        {
+          "rank": 4,
+          "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6846418976783752
+        },
+        {
+          "rank": 5,
+          "chunk_id": "ce15c70f76f58dc7a6c9ba876186668947dc8c342df61d46c4e5675ea8b48be5",
+          "source_file": "min_project.pdf",
+          "distance": 0.709479808807373
+        },
+        {
+          "rank": 6,
+          "chunk_id": "f9f99f9271b93e00a606090621d534d4a799559a2ef333ed020f335ef33e87b0",
+          "source_file": "min_project.pdf",
+          "distance": 0.7134507298469543
+        },
+        {
+          "rank": 7,
+          "chunk_id": "afc62d1a65b6bb1ce40f20a988348e357509b4684f32b9e78ab4c569052a940d",
+          "source_file": "min_project.pdf",
+          "distance": 0.7309093475341797
+        },
+        {
+          "rank": 8,
+          "chunk_id": "0e0828bf2ecea20e287988b5d2bbad9ff45cfe91cf10226be61cdb16d1963950",
+          "source_file": "min_project.pdf",
+          "distance": 0.7401922941207886
+        },
+        {
+          "rank": 9,
+          "chunk_id": "83efcd88faddfd00651c641e63b0121d708352a4d2a18228150c314a086bd16e",
+          "source_file": "min_project.pdf",
+          "distance": 0.7425705194473267
+        },
+        {
+          "rank": 10,
+          "chunk_id": "5470b9b4e82805068bbb09a7c2b9ac2fad2e3bbe396537d6ab727c6091d74ff4",
+          "source_file": "min_project.pdf",
+          "distance": 0.7502052783966064
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q15",
+      "question": "Which input files are required for the inventory stockout-risk task, and what output is expected?",
+      "expected_source": "dabstep_task_registry.xlsx",
+      "relevant_chunk_ids": [
+        "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6053689122200012
+        },
+        {
+          "rank": 2,
+          "chunk_id": "5cb714db24f728a71f227dc778d2e987049408e3b4906d5ab79ef54fa781edc9",
+          "source_file": "notes.txt",
+          "distance": 0.6484127044677734
+        },
+        {
+          "rank": 3,
+          "chunk_id": "93f33c75df64bdbc74c44b13f16c8efbfe2aa8dbf0c205f87192ad6b28244313",
+          "source_file": "notes.txt",
+          "distance": 0.6601518392562866
+        },
+        {
+          "rank": 4,
+          "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.6617097854614258
+        },
+        {
+          "rank": 5,
+          "chunk_id": "31001b8998af89085b7bd372f4c02ebd120ceb37e5eacd191b61ab222861fb51",
+          "source_file": "notes.txt",
+          "distance": 0.6618186831474304
+        },
+        {
+          "rank": 6,
+          "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+          "source_file": "quant_strategy_spec.json",
+          "distance": 0.6657689809799194
+        },
+        {
+          "rank": 7,
+          "chunk_id": "8e0ded3f72ae95f748e7963412a8de6082c8b0304ca738ab24cb8c7dda95fcad",
+          "source_file": "notes.txt",
+          "distance": 0.6680895090103149
+        },
+        {
+          "rank": 8,
+          "chunk_id": "0a998ab3deddb02e83865ab7f0f81331700d3be7469985ef2dc0c0938602056d",
+          "source_file": "notes.txt",
+          "distance": 0.66839599609375
+        },
+        {
+          "rank": 9,
+          "chunk_id": "f894691e568a0dfb018bae054c13c51975a5465345c492426e91896a5dd3821d",
+          "source_file": "notes.txt",
+          "distance": 0.6814917922019958
+        },
+        {
+          "rank": 10,
+          "chunk_id": "3031cc812f8d3d3e9b59e413f6b5a6702f9a245b01ec4dd536adb3eee6b9d294",
+          "source_file": "notes.txt",
+          "distance": 0.6848475337028503
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    {
+      "question_id": "Q16",
+      "question": "What evaluation dimensions are proposed for the synthetic task registry?",
+      "expected_source": "dabstep_task_registry.xlsx",
+      "relevant_chunk_ids": [
+        "6173efd0fc03023ddeb0f222f0f5fd6adb3aeee9973ce6037c89a53e97d598d4"
+      ],
+      "retrieved_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "6173efd0fc03023ddeb0f222f0f5fd6adb3aeee9973ce6037c89a53e97d598d4",
+          "source_file": "dabstep_task_registry.xlsx",
+          "distance": 0.44222915172576904
+        },
+        {
+          "rank": 2,
+          "chunk_id": "7e54d053117b4e0fc28218fbf1f620dabf7f44f6c5ebdbcfa0ea45e967406d16",
+          "source_file": "notes.txt",
+          "distance": 0.577915370464325
+        },
+        {
+          "rank": 3,
+          "chunk_id": "42a6ecea497d104f85946f9c0bce3bf62c680ec71b531ee41750cba033a1315d",
+          "source_file": "min_project.pdf",
+          "distance": 0.5984189510345459
+        },
+        {
+          "rank": 4,
+          "chunk_id": "309924ba89bfdbec8e6b8140c7ccd353563c589b9a13e341394b3cf6c9991c13",
+          "source_file": "min_project.pdf",
+          "distance": 0.6167371869087219
+        },
+        {
+          "rank": 5,
+          "chunk_id": "00fa4b0594b8e1b405ae67f8352a07a3da9bad548a129100c0afcb5551c632e2",
+          "source_file": "notes.txt",
+          "distance": 0.6312522292137146
+        },
+        {
+          "rank": 6,
+          "chunk_id": "486c04014c91c749b3903d71fbb6aa07f46d5ba54d2ea1e715cd499f1a067651",
+          "source_file": "notes.txt",
+          "distance": 0.636658787727356
+        },
+        {
+          "rank": 7,
+          "chunk_id": "cdaede28d541bf69ac588aac45d4985057b40ba6a5f33c0e4674c61ad3ed9539",
+          "source_file": "min_project.pdf",
+          "distance": 0.6368972063064575
+        },
+        {
+          "rank": 8,
+          "chunk_id": "85d8e05fbdb95ad7e7a9fd7947488ca3725cda8962669a4bf155e0c25fae28c0",
+          "source_file": "min_project.pdf",
+          "distance": 0.6373127102851868
+        },
+        {
+          "rank": 9,
+          "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+          "source_file": "min_project.pdf",
+          "distance": 0.6401347517967224
+        },
+        {
+          "rank": 10,
+          "chunk_id": "b7a860039c27525aaeb39f2248aeed4612f97bad92738f17dd6bc62ce796efc6",
+          "source_file": "min_project.pdf",
+          "distance": 0.6431400179862976
+        }
+      ],
+      "metrics": {
+        "precision_at_k": 0.1,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    }
+  ]
+}
