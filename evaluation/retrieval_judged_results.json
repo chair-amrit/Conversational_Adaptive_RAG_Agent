@@ -1,0 +1,178 @@
+{
+  "evaluation": "judged_retrieval_v1",
+  "summary": {
+    "total_queries": 16,
+    "total_judgements": 80,
+    "total_relevant": 19,
+    "total_irrelevant": 61,
+    "precision_at_5": 0.23750000000000002,
+    "mrr_at_5": 1.0,
+    "hit_rate_at_5": 1,
+    "label_method": "LLM-assisted relevance judgements"
+  },
+  "results": [
+    {
+      "question_id": "Q01",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q02",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q03",
+      "relevant_count": 2,
+      "relevant_ranks": [
+        1,
+        2
+      ],
+      "precision_at_5": 0.4,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q04",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q05",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q06",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q07",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q08",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q09",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q10",
+      "relevant_count": 3,
+      "relevant_ranks": [
+        1,
+        2,
+        3
+      ],
+      "precision_at_5": 0.6,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q11",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q12",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q13",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q14",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q15",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    },
+    {
+      "question_id": "Q16",
+      "relevant_count": 1,
+      "relevant_ranks": [
+        1
+      ],
+      "precision_at_5": 0.2,
+      "reciprocal_rank": 1.0,
+      "hit_at_5": 1
+    }
+  ]
+}
