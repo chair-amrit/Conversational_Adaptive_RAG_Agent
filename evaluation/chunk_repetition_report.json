@@ -1,0 +1,957 @@
+{
+  "evaluation": "chunk_repetition_diagnostics_v1",
+  "input_csv": "D:\\mycodes\\langchain\\prac_files\\retrieval_judgment_pool_completed.csv",
+  "summary": {
+    "total_retrieval_appearances": 80,
+    "unique_chunk_ids": 36,
+    "repeated_chunk_ids": 20,
+    "appearances_from_repeated_chunks": 64,
+    "repeated_appearance_rate": 0.8,
+    "irrelevant_appearances": 61,
+    "top_3_source_appearances": 51,
+    "top_3_source_appearance_share": 0.6375,
+    "top_3_source_irrelevant_appearances": 36
+  },
+  "source_statistics": [
+    {
+      "source": "rag_service_design.html",
+      "retrieval_appearances": 20,
+      "unique_chunk_ids": 5,
+      "distinct_queries": 7,
+      "relevant_appearances": 5,
+      "irrelevant_appearances": 15,
+      "retrieval_appearance_share": 0.25,
+      "share_of_all_irrelevant_appearances": 0.2459
+    },
+    {
+      "source": "quant_strategy_spec.json",
+      "retrieval_appearances": 17,
+      "unique_chunk_ids": 5,
+      "distinct_queries": 5,
+      "relevant_appearances": 6,
+      "irrelevant_appearances": 11,
+      "retrieval_appearance_share": 0.2125,
+      "share_of_all_irrelevant_appearances": 0.1803
+    },
+    {
+      "source": "project_atlas_kickoff.pptx",
+      "retrieval_appearances": 14,
+      "unique_chunk_ids": 5,
+      "distinct_queries": 4,
+      "relevant_appearances": 4,
+      "irrelevant_appearances": 10,
+      "retrieval_appearance_share": 0.175,
+      "share_of_all_irrelevant_appearances": 0.1639
+    },
+    {
+      "source": "dabstep_task_registry.xlsx",
+      "retrieval_appearances": 9,
+      "unique_chunk_ids": 4,
+      "distinct_queries": 4,
+      "relevant_appearances": 4,
+      "irrelevant_appearances": 5,
+      "retrieval_appearance_share": 0.1125,
+      "share_of_all_irrelevant_appearances": 0.082
+    },
+    {
+      "source": "min_project.pdf",
+      "retrieval_appearances": 9,
+      "unique_chunk_ids": 8,
+      "distinct_queries": 6,
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 9,
+      "retrieval_appearance_share": 0.1125,
+      "share_of_all_irrelevant_appearances": 0.1475
+    },
+    {
+      "source": "notes.txt",
+      "retrieval_appearances": 8,
+      "unique_chunk_ids": 7,
+      "distinct_queries": 5,
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 8,
+      "retrieval_appearance_share": 0.1,
+      "share_of_all_irrelevant_appearances": 0.1311
+    },
+    {
+      "source": "sample.docx",
+      "retrieval_appearances": 2,
+      "unique_chunk_ids": 1,
+      "distinct_queries": 2,
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "retrieval_appearance_share": 0.025,
+      "share_of_all_irrelevant_appearances": 0.0328
+    },
+    {
+      "source": "finetune.pdf",
+      "retrieval_appearances": 1,
+      "unique_chunk_ids": 1,
+      "distinct_queries": 1,
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 1,
+      "retrieval_appearance_share": 0.0125,
+      "share_of_all_irrelevant_appearances": 0.0164
+    }
+  ],
+  "repeated_chunks": [
+    {
+      "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 3,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13"
+      ],
+      "ranks": [
+        2,
+        3,
+        3,
+        4,
+        4
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 4,
+      "relevance_rate": 0.2,
+      "content_preview": "\"Check sensitivity to lookback and entry threshold.\" ], \"evaluation_questions\": [ { \"id\": \"Q1\", \"question\": \"What z-score triggers a candidate entry?\", \"answer\": \"-2.0\" }, { \"id\": "
+    },
+    {
+      "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 2,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        1,
+        2,
+        5,
+        5
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.4,
+      "content_preview": "filters when the query specifies a team or date, then rerank to the best 5 passages. The generation prompt must distinguish evidence from inference and must say when the retrieved "
+    },
+    {
+      "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 3,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05"
+      ],
+      "ranks": [
+        2,
+        2,
+        4,
+        4,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 5,
+      "relevance_rate": 0.0,
+      "content_preview": "in top 5 / all test queries Grounded answer rate At least 0.90 Answers supported by cited passages / answers reviewed p95 query latency Under 2.5 seconds End-to-end latency under t"
+    },
+    {
+      "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 3,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.25,
+      "content_preview": "Risks and mitigations Risk: integration API changes; mitigation: contract tests and weekly vendor check-in. Risk: low pilot adoption; mitigation: recruit champions and run two onbo"
+    },
+    {
+      "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 1,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.25,
+      "content_preview": "\"lookback_days\": 20, \"entry_threshold_zscore\": -2.0, \"exit_threshold_zscore\": -0.25, \"calculation\": \"z = (close - rolling_mean_20) / rolling_std_20\", \"timing_rule\": \"Signals are co"
+    },
+    {
+      "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 2,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        1,
+        4,
+        4
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.5,
+      "content_preview": "\"corporate_actions\": \"Adjust historical prices for splits and dividends.\" }, \"backtest_requirements\": [ \"Use point-in-time universe membership to reduce survivorship bias.\", \"Inclu"
+    },
+    {
+      "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 1,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04"
+      ],
+      "ranks": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.5,
+      "content_preview": "text while preserving headings, tables, slide boundaries, and source metadata. Normalize whitespace and attach document ID, page or slide number, and section title. Chunk by struct"
+    },
+    {
+      "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 0,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q13",
+        "Q14",
+        "Q15"
+      ],
+      "ranks": [
+        2,
+        4,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.0,
+      "content_preview": "task_id | domain | question | data_sources | expected_output | difficulty | evaluation_note task_id | domain | question | data_sources | expected_output | difficulty | evaluation_n"
+    },
+    {
+      "chunk_id": "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 2,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q13",
+        "Q14",
+        "Q15"
+      ],
+      "ranks": [
+        1,
+        1,
+        3
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 1,
+      "relevance_rate": 0.6667,
+      "content_preview": "DAB-004 | Customer support | Which issue category had the largest increase in tickets week over week? | support_tickets.csv | Category and change in count | Hard | Requires compari"
+    },
+    {
+      "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 1,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q05",
+        "Q06",
+        "Q07"
+      ],
+      "ranks": [
+        1,
+        3,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Purpose and success criteria Consolidate three internal request workflows into one service portal. Target: reduce median request completion time from 5 business days to 3. Target: "
+    },
+    {
+      "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 2,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Milestones and owners Week 1: discovery and requirements — Product Manager Weeks 2–3: service design and architecture — Design Lead + Tech Lead Weeks 4–6: implementation and integr"
+    },
+    {
+      "chunk_id": "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 4,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        2,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Governance and decisions Weekly 30-minute status meeting; written update every Friday. Escalate blockers unresolved for more than 2 business days. Decision log records owner, date,"
+    },
+    {
+      "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 0,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q04"
+      ],
+      "ranks": [
+        1,
+        3,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "RAG Service Design Note RAG Service Design Note Document ID: ENG-RAG-014 | Owner: Applied AI Platform Objective Build a question-answering service that grounds generated responses "
+    },
+    {
+      "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 4,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q03",
+        "Q04",
+        "Q10"
+      ],
+      "ranks": [
+        3,
+        5,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.0,
+      "content_preview": "can create contradictory retrieved passages. All names, thresholds, and design choices in this note are illustrative test content."
+    },
+    {
+      "chunk_id": "5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 1,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q13",
+        "Q14"
+      ],
+      "ranks": [
+        1,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 1,
+      "relevance_rate": 0.5,
+      "content_preview": "DAB-002 | Operations | What was the median delivery delay for orders marked urgent? | orders.xlsx | Median delay in hours | Medium | Requires filtering and median calculation. DAB-"
+    },
+    {
+      "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+      "retrieved_source": "min_project.pdf",
+      "chunk_index": 24,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q05",
+        "Q07"
+      ],
+      "ranks": [
+        4,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "Uncertainty measurement + Phase 2 Mechanism discovery + Controlled intervention where feasible ``` Large-scale mitigation and multiple benchmarks are treated as **future work**, no"
+    },
+    {
+      "chunk_id": "4483b4a8d3a5be75b5f0ecc01f09cb83102953a6908aa0d307687dfce704b788",
+      "retrieved_source": "notes.txt",
+      "chunk_index": 8,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q09",
+        "Q11"
+      ],
+      "ranks": [
+        3,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "The research therefore has two main objectives:"
+    },
+    {
+      "chunk_id": "5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 0,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q09",
+        "Q10"
+      ],
+      "ranks": [
+        1,
+        3
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 0,
+      "relevance_rate": 1.0,
+      "content_preview": "{ \"document_type\": \"quant_strategy_spec\", \"strategy_name\": \"Mean Reversion Sandbox\", \"version\": \"0.3\", \"status\": \"research_only\", \"universe\": { \"asset_class\": \"US equities\", \"selec"
+    },
+    {
+      "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 4,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        2,
+        2
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "\"question\": \"Name two biases or costs the backtest must address.\", \"answer\": \"Examples include survivorship bias, commissions, spread, and slippage.\" } ], \"disclaimer\": \"Synthetic "
+    },
+    {
+      "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+      "retrieved_source": "sample.docx",
+      "chunk_index": 10,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q01",
+        "Q02"
+      ],
+      "ranks": [
+        3,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "LangGraph, Google Gemini, Groq (Llama 3.1 8B Instant), FAISS + HuggingFace Embeddings, Tavily API, FastAPI– Built a 6+ node modular RAG pipeline with an intent router for Chat / Do"
+    }
+  ],
+  "most_repeated_chunks": [
+    {
+      "chunk_id": "79ec30e355a0b820ad86f669574969695d0e2d4470e0c1e90743c9a7e9995382",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 3,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13"
+      ],
+      "ranks": [
+        2,
+        3,
+        3,
+        4,
+        4
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 4,
+      "relevance_rate": 0.2,
+      "content_preview": "\"Check sensitivity to lookback and entry threshold.\" ], \"evaluation_questions\": [ { \"id\": \"Q1\", \"question\": \"What z-score triggers a candidate entry?\", \"answer\": \"-2.0\" }, { \"id\": "
+    },
+    {
+      "chunk_id": "e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 2,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        1,
+        2,
+        5,
+        5
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.4,
+      "content_preview": "filters when the query specifies a team or date, then rerank to the best 5 passages. The generation prompt must distinguish evidence from inference and must say when the retrieved "
+    },
+    {
+      "chunk_id": "ddc2b923e79bbb00061630e129ddff2441ead789845c09a642f813562b965120",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 3,
+      "appearance_count": 5,
+      "distinct_query_count": 5,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05"
+      ],
+      "ranks": [
+        2,
+        2,
+        4,
+        4,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 5,
+      "relevance_rate": 0.0,
+      "content_preview": "in top 5 / all test queries Grounded answer rate At least 0.90 Answers supported by cited passages / answers reviewed p95 query latency Under 2.5 seconds End-to-end latency under t"
+    },
+    {
+      "chunk_id": "47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 3,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.25,
+      "content_preview": "Risks and mitigations Risk: integration API changes; mitigation: contract tests and weekly vendor check-in. Risk: low pilot adoption; mitigation: recruit champions and run two onbo"
+    },
+    {
+      "chunk_id": "3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 1,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.25,
+      "content_preview": "\"lookback_days\": 20, \"entry_threshold_zscore\": -2.0, \"exit_threshold_zscore\": -0.25, \"calculation\": \"z = (close - rolling_mean_20) / rolling_std_20\", \"timing_rule\": \"Signals are co"
+    },
+    {
+      "chunk_id": "2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 2,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        1,
+        1,
+        4,
+        4
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.5,
+      "content_preview": "\"corporate_actions\": \"Adjust historical prices for splits and dividends.\" }, \"backtest_requirements\": [ \"Use point-in-time universe membership to reduce survivorship bias.\", \"Inclu"
+    },
+    {
+      "chunk_id": "3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 1,
+      "appearance_count": 4,
+      "distinct_query_count": 4,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04"
+      ],
+      "ranks": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.5,
+      "content_preview": "text while preserving headings, tables, slide boundaries, and source metadata. Normalize whitespace and attach document ID, page or slide number, and section title. Chunk by struct"
+    },
+    {
+      "chunk_id": "7d4ac6f05a91870d0f0f2bef6efe988ef1b75afd5bf793cdba7b7fd3d528174b",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 0,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q13",
+        "Q14",
+        "Q15"
+      ],
+      "ranks": [
+        2,
+        4,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.0,
+      "content_preview": "task_id | domain | question | data_sources | expected_output | difficulty | evaluation_note task_id | domain | question | data_sources | expected_output | difficulty | evaluation_n"
+    },
+    {
+      "chunk_id": "4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 2,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q13",
+        "Q14",
+        "Q15"
+      ],
+      "ranks": [
+        1,
+        1,
+        3
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 1,
+      "relevance_rate": 0.6667,
+      "content_preview": "DAB-004 | Customer support | Which issue category had the largest increase in tickets week over week? | support_tickets.csv | Category and change in count | Hard | Requires compari"
+    },
+    {
+      "chunk_id": "e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 1,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q05",
+        "Q06",
+        "Q07"
+      ],
+      "ranks": [
+        1,
+        3,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Purpose and success criteria Consolidate three internal request workflows into one service portal. Target: reduce median request completion time from 5 business days to 3. Target: "
+    },
+    {
+      "chunk_id": "3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 2,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Milestones and owners Week 1: discovery and requirements — Product Manager Weeks 2–3: service design and architecture — Design Lead + Tech Lead Weeks 4–6: implementation and integr"
+    },
+    {
+      "chunk_id": "79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54",
+      "retrieved_source": "project_atlas_kickoff.pptx",
+      "chunk_index": 4,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "ranks": [
+        1,
+        2,
+        5
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "Governance and decisions Weekly 30-minute status meeting; written update every Friday. Escalate blockers unresolved for more than 2 business days. Decision log records owner, date,"
+    },
+    {
+      "chunk_id": "1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 0,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q01",
+        "Q02",
+        "Q04"
+      ],
+      "ranks": [
+        1,
+        3,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.3333,
+      "content_preview": "RAG Service Design Note RAG Service Design Note Document ID: ENG-RAG-014 | Owner: Applied AI Platform Objective Build a question-answering service that grounds generated responses "
+    },
+    {
+      "chunk_id": "5188365cd6892d855a140752a9a07101cf7e2adc5a39b882bdd868bbdeb86cf2",
+      "retrieved_source": "rag_service_design.html",
+      "chunk_index": 4,
+      "appearance_count": 3,
+      "distinct_query_count": 3,
+      "question_ids": [
+        "Q03",
+        "Q04",
+        "Q10"
+      ],
+      "ranks": [
+        3,
+        5,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 3,
+      "relevance_rate": 0.0,
+      "content_preview": "can create contradictory retrieved passages. All names, thresholds, and design choices in this note are illustrative test content."
+    },
+    {
+      "chunk_id": "5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337",
+      "retrieved_source": "dabstep_task_registry.xlsx",
+      "chunk_index": 1,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q13",
+        "Q14"
+      ],
+      "ranks": [
+        1,
+        3
+      ],
+      "relevant_appearances": 1,
+      "irrelevant_appearances": 1,
+      "relevance_rate": 0.5,
+      "content_preview": "DAB-002 | Operations | What was the median delivery delay for orders marked urgent? | orders.xlsx | Median delay in hours | Medium | Requires filtering and median calculation. DAB-"
+    },
+    {
+      "chunk_id": "d592796d4f3cd2df5ebf90d4ffd81966cf1c2dbc7899761dd60673c27d32c6ec",
+      "retrieved_source": "min_project.pdf",
+      "chunk_index": 24,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q05",
+        "Q07"
+      ],
+      "ranks": [
+        4,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "Uncertainty measurement + Phase 2 Mechanism discovery + Controlled intervention where feasible ``` Large-scale mitigation and multiple benchmarks are treated as **future work**, no"
+    },
+    {
+      "chunk_id": "4483b4a8d3a5be75b5f0ecc01f09cb83102953a6908aa0d307687dfce704b788",
+      "retrieved_source": "notes.txt",
+      "chunk_index": 8,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q09",
+        "Q11"
+      ],
+      "ranks": [
+        3,
+        5
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "The research therefore has two main objectives:"
+    },
+    {
+      "chunk_id": "5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 0,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q09",
+        "Q10"
+      ],
+      "ranks": [
+        1,
+        3
+      ],
+      "relevant_appearances": 2,
+      "irrelevant_appearances": 0,
+      "relevance_rate": 1.0,
+      "content_preview": "{ \"document_type\": \"quant_strategy_spec\", \"strategy_name\": \"Mean Reversion Sandbox\", \"version\": \"0.3\", \"status\": \"research_only\", \"universe\": { \"asset_class\": \"US equities\", \"selec"
+    },
+    {
+      "chunk_id": "c416001aca1efbb1f7ff165ac6906d9a280d0a314103319b968f7aecba09ca57",
+      "retrieved_source": "quant_strategy_spec.json",
+      "chunk_index": 4,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q11",
+        "Q12"
+      ],
+      "ranks": [
+        2,
+        2
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "\"question\": \"Name two biases or costs the backtest must address.\", \"answer\": \"Examples include survivorship bias, commissions, spread, and slippage.\" } ], \"disclaimer\": \"Synthetic "
+    },
+    {
+      "chunk_id": "14c627892be21519feee245933b233a19e9d15df9ce56882c038dcbaefead67f",
+      "retrieved_source": "sample.docx",
+      "chunk_index": 10,
+      "appearance_count": 2,
+      "distinct_query_count": 2,
+      "question_ids": [
+        "Q01",
+        "Q02"
+      ],
+      "ranks": [
+        3,
+        4
+      ],
+      "relevant_appearances": 0,
+      "irrelevant_appearances": 2,
+      "relevance_rate": 0.0,
+      "content_preview": "LangGraph, Google Gemini, Groq (Llama 3.1 8B Instant), FAISS + HuggingFace Embeddings, Tavily API, FastAPI– Built a 6+ node modular RAG pipeline with an intent router for Chat / Do"
+    }
+  ]
+}

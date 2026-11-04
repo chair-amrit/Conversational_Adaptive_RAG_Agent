@@ -1,0 +1,102 @@
+{
+  "dataset_name": "rag_retrieval_benchmark_v1",
+  "description": "Initial retrieval benchmark using four indexed synthetic evaluation documents.",
+  "test_cases": [
+    {
+      "id": "Q01",
+      "source_file": "rag_service_design.html",
+      "question": "Which file formats are supported by the first release of the RAG service?",
+      "relevant_chunk_ids": ["1b9cd0275418d222443d1f0de9ae1ac9b3fa7f22aceed6751a18aa3deb8bd6cd"]
+    },
+    {
+      "id": "Q02",
+      "source_file": "rag_service_design.html",
+      "question": "What initial chunk size and overlap does the RAG design recommend?",
+      "relevant_chunk_ids": ["3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7"]
+    },
+    {
+      "id": "Q03",
+      "source_file": "rag_service_design.html",
+      "question": "How many initial candidates should retrieval fetch, and how many passages should remain after reranking?",
+      "relevant_chunk_ids": ["3e8c3f6bdf9dbd56d82a1a205b7467bb0484815cbca5ce311d908a700658bfd7"]
+    },
+    {
+      "id": "Q04",
+      "source_file": "rag_service_design.html",
+      "question": "What is the target retrieval Recall@5 in the RAG service design?",
+      "relevant_chunk_ids": ["e8e47fcd144a22b17f0051770696eea8f0d4b223d75e2ba7a561f186c299451f"]
+    },
+    {
+      "id": "Q05",
+      "source_file": "project_atlas_kickoff.pptx",
+      "question": "What is Project Atlas intended to consolidate, and what are its completion-time and adoption targets?",
+      "relevant_chunk_ids": ["e47a3f19e77bfdabc2e8c8848aa743b196bf941d059aaeef105ec7801c02dbb2"]
+    },
+    {
+      "id": "Q06",
+      "source_file": "project_atlas_kickoff.pptx",
+      "question": "Who owns implementation and integration during Weeks 4 to 6?",
+      "relevant_chunk_ids": ["3e185b0ea8567b8157aaa904596413cd7986c98b21f80183c8b3511bfa2f42cd"]
+    },
+    {
+      "id": "Q07",
+      "source_file": "project_atlas_kickoff.pptx",
+      "question": "What mitigations are proposed for the risk of low pilot adoption?",
+      "relevant_chunk_ids": ["47fb4adbd874c2d66cbbf68890e82800257940da6b35525e7306162059948db3"]
+    },
+    {
+      "id": "Q08",
+      "source_file": "project_atlas_kickoff.pptx",
+      "question": "When should unresolved blockers be escalated?",
+      "relevant_chunk_ids": ["79b20e356e77f6d31a0590812d60ea778f40075aa7cd599b895044d6f426eb54"]
+    },
+    {
+      "id": "Q09",
+      "source_file": "quant_strategy_spec.json",
+      "question": "Which asset class does the strategy use, and what liquidity rule defines its selection universe?",
+      "relevant_chunk_ids": ["5a8bd64be07297abdc0e3e8cdaedbfbed2023a9924173b8b18af78a5f800f0d6"]
+    },
+    {
+      "id": "Q10",
+      "source_file": "quant_strategy_spec.json",
+      "question": "What are the entry and exit z-score thresholds for the strategy?",
+      "relevant_chunk_ids": ["3d0dfd0824c4c058939e930850698ea3055d8f09cae044b50c94cf9c99a191c9"]
+    },
+    {
+      "id": "Q11",
+      "source_file": "quant_strategy_spec.json",
+      "question": "How should historical prices be adjusted for corporate actions?",
+      "relevant_chunk_ids": ["2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb"]
+    },
+    {
+      "id": "Q12",
+      "source_file": "quant_strategy_spec.json",
+      "question": "Which performance metrics must be reported during backtesting?",
+      "relevant_chunk_ids": ["2dc6d6f8d9fff241f2217934c7f9a98101e166999e148a8026da5eb808958acb"]
+    },
+    {
+      "id": "Q13",
+      "source_file": "dabstep_task_registry.xlsx",
+      "question": "Which registry task asks for the median delivery delay of urgent orders, and what is its expected output?",
+      "relevant_chunk_ids": ["5c33d9bf9212057b3b0c053e6977f2475c91fca661622462faf40af6bd601337"]
+    },
+    {
+      "id": "Q14",
+      "source_file": "dabstep_task_registry.xlsx",
+      "question": "Which task requires comparing adjacent weeks to identify the largest increase in support tickets?",
+      "relevant_chunk_ids": ["4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef"]
+    },
+    {
+      "id": "Q15",
+      "source_file": "dabstep_task_registry.xlsx",
+      "question": "Which input files are required for the inventory stockout-risk task, and what output is expected?",
+      "relevant_chunk_ids": ["4f4c56070a605780f8b19b54ef2c0920ce2efd45451586f8e3eef303247ec6ef"]
+    },
+    {
+      "id": "Q16",
+      "source_file": "dabstep_task_registry.xlsx",
+      "question": "What evaluation dimensions are proposed for the synthetic task registry?",
+      "relevant_chunk_ids": ["6173efd0fc03023ddeb0f222f0f5fd6adb3aeee9973ce6037c89a53e97d598d4"]
+    }
+  ]
+}

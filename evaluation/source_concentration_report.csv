@@ -1,0 +1,9 @@
+﻿source,retrieval_appearances,unique_retrieved_chunks,distinct_queries,relevant_appearances,irrelevant_appearances,judged_relevance_rate,retrieval_appearance_share,share_of_all_irrelevant,repeated_chunk_ids,appearances_from_repeated_chunks,expected_source_appearances,cross_document_appearances,cross_document_irrelevant_appearances
+rag_service_design.html,20,5,7,5,15,0.2500,0.2500,0.2459,5,20,17,3,3
+quant_strategy_spec.json,17,5,5,6,11,0.3529,0.2125,0.1803,5,17,16,1,1
+project_atlas_kickoff.pptx,14,5,4,4,10,0.2857,0.1750,0.1639,4,13,14,0,0
+dabstep_task_registry.xlsx,9,4,4,4,5,0.4444,0.1125,0.0820,3,8,9,0,0
+min_project.pdf,9,8,6,0,9,0.0000,0.1125,0.1475,1,2,0,9,9
+notes.txt,8,7,5,0,8,0.0000,0.1000,0.1311,1,2,0,8,8
+sample.docx,2,1,2,0,2,0.0000,0.0250,0.0328,1,2,0,2,2
+finetune.pdf,1,1,1,0,1,0.0000,0.0125,0.0164,0,0,0,1,1
