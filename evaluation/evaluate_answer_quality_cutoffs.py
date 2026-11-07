@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from langchain_chroma import Chroma
+from langchain_core.load.dump import dumpd
 
 from llm_utils import generate_chain
 from rag_utils import GoogleGenerativeAIEmbeddings
@@ -228,6 +229,29 @@ def mean_or_zero(values: Any) -> float:
     return sum(items) / len(items) if items else 0.0
 
 
+def prompt_fingerprint(prompt: Any) -> str:
+    """Hash LangChain's serialized prompt templates and their configuration."""
+    representation = {
+        "serialized_prompt": dumpd(prompt),
+        "configuration": {
+            "name": prompt.name,
+            "input_variables": prompt.input_variables,
+            "optional_variables": prompt.optional_variables,
+            "partial_variables": prompt.partial_variables,
+            "validate_template": prompt.validate_template,
+            "metadata": prompt.metadata,
+            "tags": prompt.tags,
+        },
+    }
+    canonical_json = json.dumps(
+        representation,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
+
+
 def build_review_rows(results: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     rows = []
     key_rows = []
@@ -290,9 +314,7 @@ def run(output_dir: Path) -> dict[str, Any]:
     validate_gold_ids(db, cases)
     corpus_size, corpus_sha256 = corpus_fingerprint(db)
     chain = generate_chain()
-    prompt_sha256 = hashlib.sha256(
-        chain.steps[0].to_string().encode("utf-8")
-    ).hexdigest()
+    prompt_sha256 = prompt_fingerprint(chain.steps[0])
     artifact: dict[str, Any] = {
         "experiment": "answer_quality_top3_vs_top5_v1",
         "status": "running",
