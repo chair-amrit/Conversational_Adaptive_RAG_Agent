@@ -36,7 +36,11 @@ Status labels:
 | Source concentration analysis | DONE |
 | Top-K cutoff evaluation | DONE |
 | Independent blinded relevance audit | DONE |
-| Controlled Top-3 vs Top-5 answer evaluation | IN PROGRESS |
+| Controlled Top-3 vs Top-5 experiment implementation | DONE |
+| Controlled Top-3 vs Top-5 answer generation | IN PROGRESS |
+| Safe experiment resumption | PENDING |
+| Human answer-quality evaluation | PENDING |
+| Paired answer-quality analysis | PENDING |
 | Retrieval improvements | PENDING |
 | Before/after comparison | PENDING |
 
@@ -74,4 +78,20 @@ Status labels:
 
 Finish Phase 2 before making significant retrieval configuration changes.
 
-Next immediate task: complete the controlled Top-3 versus Top-5 answer-quality experiment.
+### Current task: Step 9.6
+
+Controlled Top-3 versus Top-5 answer-quality experiment.
+
+Implementation and offline validation are complete.
+
+Generation has produced 16 of 32 expected answers across eight completed questions. Execution stopped because of Gemini free-tier HTTP 429 quota exhaustion.
+
+Next actions:
+1. Verify existing partial artifacts.
+2. Implement safe resume and bounded retry behaviour.
+3. Test recovery logic without API calls.
+4. Generate Q09–Q16.
+5. Complete blinded human answer evaluation.
+6. Analyse paired correctness, completeness and citation-support results.
+
+Production retrieval configuration must remain unchanged until the experiment is fully evaluated.
