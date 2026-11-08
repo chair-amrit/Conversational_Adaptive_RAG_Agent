@@ -80,6 +80,39 @@
 
 **Status:** Active.
 
+## D010 — Preserve partial experiment outputs
+
+**Date:** 7 November 2026.
+
+**Problem:** The Top-3 versus Top-5 experiment was interrupted after eight question pairs because Gemini returned HTTP 429 RESOURCE_EXHAUSTED.
+
+**Decision:** Preserve successfully generated answers and resume only incomplete question pairs.
+
+**Reason:** Regenerating completed pairs would waste API calls and introduce unnecessary generation variability.
+
+**Trade-offs:** The experiment runner requires explicit resume behaviour and careful artifact validation.
+
+**Status:** Adopted; resume implementation pending.
+
+## D011 — Controlled rate-limit handling
+
+**Date:** 7 November 2026.
+
+**Problem:** Gemini free-tier generation requests exceeded the per-minute quota during experiment execution.
+
+**Decision:** Implement configurable request pacing and bounded retry handling for HTTP 429 responses.
+
+**Reason:** Improve experiment reliability without changing production generation or retrieval configurations.
+
+**Constraints:**
+- Do not change the production generation model.
+- Do not change production prompts.
+- Do not change production retriever Top-K.
+- Preserve raw outputs after each completed question pair.
+- Do not silently retry indefinitely.
+
+**Status:** Approved; implementation and validation pending.
+
 ## Future decisions
 
 Record new decisions using:
