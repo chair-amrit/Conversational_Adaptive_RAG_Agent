@@ -81,25 +81,91 @@ Limitation: The original rank-1 labels were seeded before the independent review
 
 **Status:** IN PROGRESS
 
-Compare:
-- Retrieval context quantity.
-- Relevant evidence retained.
-- Irrelevant context introduced.
-- Answer correctness.
-- Answer completeness.
-- Citation support.
+### Research question
 
-Control variables:
+Does retaining three retrieved chunks instead of five change generated answer correctness, completeness and citation support for the fixed 16-question evaluation dataset?
+
+### Experimental controls
+
 - Same 16 questions.
-- Same corpus.
-- Same embedding model.
+- Same Chroma corpus.
+- Same Gemini embedding model.
 - Same generation model.
-- Same prompt.
+- Same production prompt.
+- Same source formatting.
 - Same evaluation rubric.
+- Production retriever configuration remains unchanged.
 
-Preserve raw outputs for both configurations.
+### Implementation status
 
-Do not change production Top-K before results are reviewed.
+The experiment runner, offline tests and methodology documentation have been committed.
+
+Prompt fingerprint compatibility was fixed using LangChain's `dumpd()` serialization.
+
+Six offline tests passed after the fix.
+
+### Partial execution — 7 November 2026
+
+**Output directory:**
+
+`D:\rag_experiments\answer_quality_runs\step-9-6-run-01`
+
+| Measurement | Result |
+|---|---:|
+| Evaluation questions | 16 |
+| Completed question pairs | 8 |
+| Top-3 answers generated | 8 |
+| Top-5 answers generated | 8 |
+| Total answers generated | 16/32 |
+| Remaining question pairs | 8 |
+| API error | HTTP 429 RESOURCE_EXHAUSTED |
+
+The API error was caused by the Gemini free-tier generation request-per-minute quota.
+
+The execution stopped after Q08. Q09–Q16 were not generated.
+
+### Interpretation
+
+These are execution and generation counts only.
+
+No answer-quality conclusions can be drawn from the partial run.
+
+Correctness, completeness and citation support have not yet been evaluated.
+
+### Recovery plan
+
+1. Verify the existing `results.json`, `human_review.csv` and `answer_key.csv`.
+2. Preserve all completed outputs.
+3. Implement safe resumption from the first incomplete question.
+4. Add bounded HTTP 429 retry handling and request pacing.
+5. Test recovery behaviour without Gemini API calls.
+6. Generate the remaining Q09–Q16 answer pairs.
+7. Validate all 32 generated answers.
+8. Conduct blinded human evaluation.
+9. Analyse paired per-question differences.
+
+### Human answer-review rubric
+
+| Score | Correctness | Completeness | Citation support |
+|---:|---|---|---|
+| 0 | Material factual error, unsupported claim, or fails to answer. | Omits the answer or misses material parts. | Citations absent where needed, incorrect, or unsupported. |
+| 1 | Partly correct, with a material error or ambiguity. | Answers some but not all requested parts. | Some claims supported, but at least one material claim is uncited or unclear. |
+| 2 | Factually correct and consistent with the source. | Covers all requested parts at an appropriate level of detail. | Each material document-based claim is supported by a correct citation. |
+
+Use human-reviewable evidence and reviewer notes.
+
+Do not use an LLM as the sole judge.
+
+### Limitations
+
+- Only 16 questions are included.
+- There is one generation per condition.
+- Generation can vary between calls.
+- Provider quota and model behaviour can affect execution.
+- Retrieval relevance labels are not complete answer ground truth.
+- Findings will be descriptive and limited to this evaluation set.
+
+Do not change production Top-K before reviewing the complete paired experiment.
 
 ## Future experiment record template
 
